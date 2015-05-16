@@ -1,0 +1,49 @@
+MASTER_MAP_NAME="<%= @master_map_name %>"
+TIMEOUT=<%= @mount_timeout %>
+NEGATIVE_TIMEOUT=<%= @negative_timeout %>
+<% if not @mount_wait.empty? then -%>
+MOUNT_WAIT=<%= @mount_wait %>
+<% end -%>
+<% if not @umount_wait.empty? then -%>
+UMOUNT_WAIT=<%= @umount_wait %>
+<% end -%>
+BROWSE_MODE="<%= @browse_mode %>"
+APPEND_OPTIONS=<%= @append_options %>
+LOGGING="<%= @logging %>"
+<% if not @ldap_uri.empty? then -%>
+LDAP_URI="<%= @ldap_uri %>"
+<%   if not @ldap_timeout.empty? then -%>
+LDAP_TIMEOUT=<%= @ldap_timeout %>
+<%   end -%>
+<%   if not @ldap_network_timeout.empty? then -%>
+LDAP_NETWORK_TIMEOUT=<%= @ldap_network_timeout %>
+<%   end -%>
+<%   if not @search_base.empty? then -%>
+SEARCH_BASE="<%= @search_base %>"
+<%   end -%>
+<%   if not @map_object_class.empty? then -%>
+MAP_OBJECT_CLASS="<%= @map_object_class %>"
+<%   end -%>
+<%   if not @entry_object_class.empty? then -%>
+ENTRY_OBJECT_CLASS="<%= @entry_object_class %>"
+<%   end -%>
+<%   if not @map_attribute.empty? then -%>
+MAP_ATTRIBUTE="<%= @map_attribute %>"
+<%   end -%>
+<%   if not @entry_attribute.empty? then -%>
+ENTRY_ATTRIBUTE="<%= @entry_attribute %>"
+<%   end -%>
+<%   if not @value_attribute.empty? then -%>
+VALUE_ATTRIBUTE="<%= @value_attribute %>"
+<%   end -%>
+<%   if not @auth_conf_file.empty? then -%>
+AUTH_CONF_FILE="<%= @auto_conf_file %>"
+<%   end -%>
+<% end -%>
+<% if not @map_hash_table_size.empty? then -%>
+MAP_HASH_TABLE_SIZE=<%= @map_hash_table_size %>
+<% end -%>
+USE_MISC_DEVICE="<%= @use_misc_device %>"
+<% if not @options.empty? then -%>
+OPTIONS=""
+<% end -%>

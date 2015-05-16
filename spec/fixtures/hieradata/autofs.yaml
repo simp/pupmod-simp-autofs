@@ -1,0 +1,3 @@
+---
+autofs::ldap_auth::user: "LDAPUser"
+autofs::ldap_auth::secret: "LDAPPass"

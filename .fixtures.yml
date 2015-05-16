@@ -1,0 +1,11 @@
+---
+fixtures:
+  symlinks:
+    autofs: "#{source_dir}"
+    common: "#{source_dir}/../common"
+    iptables: "#{source_dir}/../iptables"
+    nfs: "#{source_dir}/../nfs"
+    stdlib: "#{source_dir}/../stdlib"
+    sysctl: "#{source_dir}/../sysctl"
+    svckill : "#{source_dir}/../svckill"
+    concat : "#{source_dir}/../concat"

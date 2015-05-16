@@ -1,0 +1,2 @@
+---
+'autofs::enable_nfs': false

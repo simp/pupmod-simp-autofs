@@ -1,0 +1,30 @@
+<%
+  t_valid_map_types = [
+    "file",
+    "program",
+    "yp",
+    "nisplus",
+    "hesiod",
+    "ldap",
+    "ldaps",
+    "multi"
+  ]
+
+  t_entry = "#{@mount_point}\t"
+
+  if not map_type.empty? then
+    if not t_valid_map_types.include?(@map_type) then
+      raise Puppet::ParseError.new("Invalid map type '#{@map_type}' specified.")
+    end
+    t_entry << " #{@map_type}"
+
+    if not @map_format.empty? then
+      t_entry << ",#{@map_format}"
+    end
+
+    t_entry << ":"
+  end
+
+  t_entry << "#{@map_name} #{@options}"
+-%>
+<%= t_entry %>
