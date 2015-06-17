@@ -1,11 +1,15 @@
 ---
 fixtures:
+  repositories:
+    augeasproviders : "git://github.com/simp/augeasproviders"
+    augeasproviders_sysctl: "git://github.com/simp/augeasproviders_sysctl"
+    augeasproviders_core : "git://github.com/simp/augeasproviders_core"
+    common: "git://github.com/simp/pupmod-simp-common"
+    iptables: "git://github.com/simp/pupmod-simp-iptables"
+    nfs: "git://github.com/simp/pupmod-simp-nfs"
+    stdlib: "git://github.com/simp/puppetlabs-stdlib"
+    sysctl: "git://github.com/simp/pupmod-simp-sysctl"
+    svckill : "git://github.com/simp/pupmod-simp-svckill"
+    concat : "git://github.com/simp/pupmod-simp-concat"
   symlinks:
     autofs: "#{source_dir}"
-    common: "#{source_dir}/../common"
-    iptables: "#{source_dir}/../iptables"
-    nfs: "#{source_dir}/../nfs"
-    stdlib: "#{source_dir}/../stdlib"
-    sysctl: "#{source_dir}/../sysctl"
-    svckill : "#{source_dir}/../svckill"
-    concat : "#{source_dir}/../concat"
