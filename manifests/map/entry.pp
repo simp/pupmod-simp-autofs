@@ -51,23 +51,23 @@ define autofs::map::entry (
   }
 
   # This ensures that this define will only do this once.
-  if !defined(File["/etc/autofs/$target.map"]) {
-    concat_build { "autofs_$target":
+  if !defined(File["/etc/autofs/${target}.map"]) {
+    concat_build { "autofs_${target}":
       order  => ['*.map'],
-      target => "/etc/autofs/$target.map"
+      target => "/etc/autofs/${target}.map"
     }
 
-    file { "/etc/autofs/$target.map":
+    file { "/etc/autofs/${target}.map":
       ensure    => $ensure,
       owner     => 'root',
       group     => 'root',
       mode      => '0640',
-      subscribe => Concat_build["autofs_$target"],
+      subscribe => Concat_build["autofs_${target}"],
       notify    => Service['autofs']
     }
   }
 
-  concat_fragment { "autofs_${target}+$l_name_no_slashes.map":
-    content => "$l_key\t$options\t$location\n"
+  concat_fragment { "autofs_${target}+${l_name_no_slashes}.map":
+    content => "${l_key}\t${options}\t${location}\n"
   }
 }
