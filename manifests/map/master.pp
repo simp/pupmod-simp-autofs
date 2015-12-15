@@ -64,7 +64,7 @@ define autofs::map::master (
     }
   }
 
-  concat_fragment { "autofs_master+$name.map":
+  concat_fragment { "autofs_master+${name}.map":
     content => template('autofs/auto.master.erb')
   }
 

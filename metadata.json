@@ -1,0 +1,41 @@
+{
+  "name":    "simp-autofs",
+  "version": "4.1.0",
+  "author":  "simp",
+  "summary": "manages autofs",
+  "license": "Apache-2.0",
+  "source":  "https://github.com/simp/pupmod-simp-autofs",
+  "project_page": "https://github.com/simp/pupmod-simp-autofs",
+  "issues_url":   "https://simp-project.atlassian.net",
+  "tags": [ "simp", "autofs" ],
+  "dependencies": [
+    {
+      "name": "simp-nfs",
+      "version_requirement": ">= 4.1.0"
+    },
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 3.2.0"
+    },
+    {
+      "name": "simp-simpcat",
+      "version_requirement": ">= 2.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ]
+}
