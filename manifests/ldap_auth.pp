@@ -125,4 +125,6 @@ class autofs::ldap_auth (
   if !empty($credentialcache) {
     validate_absolute_path($credentialcache)
   }
+
+  compliance_map()
 }
