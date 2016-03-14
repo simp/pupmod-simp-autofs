@@ -1,7 +1,7 @@
 Summary: AutoFS Puppet Module
 Name: pupmod-autofs
-Version: 4.1.0
-Release: 8
+Version: 4.1.1
+Release: 0
 License: Apache License, Version 2.0
 Group: Applications/System
 Source: %{name}-%{version}-%{release}.tar.gz
@@ -12,10 +12,10 @@ Requires: pupmod-nfs >= 4.1.0-8
 Requires: puppet >= 3.3.0
 Buildarch: noarch
 Requires: simp-bootstrap >= 4.2.0
-Obsoletes: pupmod-autofs-test
 Requires: pupmod-onyxpoint-compliance_markup
+Obsoletes: pupmod-autofs-test
 
-Prefix:"/etc/puppet/environments/simp/modules"
+Prefix: %{_sysconfdir}/puppet/environments/simp/modules
 
 %description
 This Puppet module allows for the configuration of AutoFS.
@@ -44,19 +44,18 @@ mkdir -p %{buildroot}/%{prefix}/autofs
 
 %files
 %defattr(0640,root,puppet,0750)
-/etc/puppet/environments/simp/modules/autofs
+%{prefix}/autofs
 
 %post
 #!/bin/sh
-
-if [ -d /etc/puppet/environments/simp/modules/autofs/plugins ]; then
-  /bin/mv /etc/puppet/environments/simp/modules/autofs/plugins /etc/puppet/environments/simp/modules/autofs/plugins.bak
-fi
 
 %postun
 # Post uninstall stuff
 
 %changelog
+* Mon Mar 14 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 4.1.1-0
+- Fixed template variable reference typos
+
 * Tue Mar 01 2016 Ralph Wright <ralph.wright@onyxpoint.com> - 4.1.0-8
 - Added compliance function support
 
