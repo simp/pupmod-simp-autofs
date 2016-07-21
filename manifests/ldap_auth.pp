@@ -99,16 +99,6 @@ class autofs::ldap_auth (
   $clientprinc = '',
   $credentialcache = ''
   ) {
-
-  file { $ldap_auth_conf_file:
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0640',
-    content => template('autofs/ldap_auth.erb'),
-    notify  => Service['autofs']
-  }
-
   validate_array_member($usetls,['yes','no'])
   validate_array_member($tlsrequired,['yes','no'])
   validate_array_member($authrequired,['yes','no','autodetect','simple'])
@@ -127,4 +117,13 @@ class autofs::ldap_auth (
   }
 
   compliance_map()
+
+  file { $ldap_auth_conf_file:
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('autofs/ldap_auth.erb'),
+    notify  => Service['autofs']
+  }
 }
