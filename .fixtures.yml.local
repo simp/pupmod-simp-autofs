@@ -1,14 +1,16 @@
----
-fixtures:
-  symlinks:
-    autofs: "#{source_dir}"
-    augeasproviders : "#{source_dir}/../augeasproviders"
-    augeasproviders_sysctl: "#{source_dir}/../augeasproviders_sysctl"
-    augeasproviders_core : "#{source_dir}/../augeasproviders_core"
-    common: "#{source_dir}/../common"
-    iptables: "#{source_dir}/../iptables"
-    nfs: "#{source_dir}/../nfs"
-    stdlib: "#{source_dir}/../stdlib"
-    sysctl: "#{source_dir}/../sysctl"
-    svckill : "#{source_dir}/../svckill"
-    concat : "#{source_dir}/../concat"
+--- 
+  fixtures: 
+    symlinks: 
+      augeasproviders: "#{source_dir}/../augeasproviders"
+      augeasproviders_core: "#{source_dir}/../augeasproviders_core"
+      augeasproviders_sysctl: "#{source_dir}/../augeasproviders_sysctl"
+      autofs: "#{source_dir}"
+      common: "#{source_dir}/../common"
+      compliance: "#{source_dir}/../compliance"
+      concat: "#{source_dir}/../concat"
+      iptables: "#{source_dir}/../iptables"
+      nfs: "#{source_dir}/../nfs"
+      simplib: "#{source_dir}/../simplib"
+      stdlib: "#{source_dir}/../stdlib"
+      svckill: "#{source_dir}/../svckill"
+      sysctl: "#{source_dir}/../sysctl"
