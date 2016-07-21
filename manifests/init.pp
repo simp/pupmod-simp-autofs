@@ -128,6 +128,35 @@ class autofs (
   $options = '',
   $enable_nfs = true
 ) {
+
+  if $ldap_auth_conf_file {
+    include '::autofs::ldap_auth'
+
+    validate_absolute_path($ldap_auth_conf_file)
+  }
+
+  validate_integer($mount_timeout)
+  validate_integer($negative_timeout)
+  if !empty($mount_wait) {
+    validate_integer($mount_wait)
+  }
+  if !empty($umount_wait) {
+    validate_integer($umount_wait)
+  }
+  validate_array_member($browse_mode,['yes','no'])
+  validate_array_member($append_options,['yes','no'])
+  validate_array_member($logging,['none','verbose','debug'])
+  if !empty($ldap_timeout) {
+    validate_integer($ldap_timeout)
+  }
+  if !empty($ldap_network_timeout) {
+    validate_integer($ldap_network_timeout)
+  }
+  validate_array_member($use_misc_device,['yes','no'])
+  validate_bool($enable_nfs)
+
+  compliance_map()
+
   file { '/etc/autofs':
     ensure => 'directory',
     owner  => 'root',
@@ -162,7 +191,7 @@ class autofs (
   }
 
   if $enable_nfs {
-    include 'nfs'
+    include '::nfs'
 
     Package['nfs-utils'] -> Package['autofs']
     Service['autofs'] ~> Service[$::nfs::service_names::rpcbind]
@@ -171,32 +200,4 @@ class autofs (
       Service['stunnel'] ~> Service['autofs']
     }
   }
-
-  if $ldap_auth_conf_file {
-    include '::autofs::ldap_auth'
-
-    validate_absolute_path($ldap_auth_conf_file)
-  }
-
-  validate_integer($mount_timeout)
-  validate_integer($negative_timeout)
-  if !empty($mount_wait) {
-    validate_integer($mount_wait)
-  }
-  if !empty($umount_wait) {
-    validate_integer($umount_wait)
-  }
-  validate_array_member($browse_mode,['yes','no'])
-  validate_array_member($append_options,['yes','no'])
-  validate_array_member($logging,['none','verbose','debug'])
-  if !empty($ldap_timeout) {
-    validate_integer($ldap_timeout)
-  }
-  if !empty($ldap_network_timeout) {
-    validate_integer($ldap_network_timeout)
-  }
-  validate_array_member($use_misc_device,['yes','no'])
-  validate_bool($enable_nfs)
-
-  compliance_map()
 }
