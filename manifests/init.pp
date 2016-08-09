@@ -197,7 +197,15 @@ class autofs (
     Service['autofs'] ~> Service[$::nfs::service_names::rpcbind]
 
     if $::nfs::use_stunnel {
-      Service['stunnel'] ~> Service['autofs']
+
+      # Ugly exec to break the dependency cycle Service[autofs] =>
+      # Service[rpcbind] => Service[nfs] => Service[stunnel] => Service[autofs]
+      exec { 'refresh autofs':
+        command => 'pkill -HUP -x automount',
+        refreshonly => true
+      }
+      Service['stunnel'] ~> Exec['refresh autofs']
     }
   }
+
 }

@@ -1,3 +1,6 @@
+* Tue Aug 09 2016 Nick Markowski <nmarkowski@keywcorp.com> - 4.1.2-0
+- Fixed dependency cycle between autofs and stunnel with an ugly exec.
+
 * Mon Mar 14 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 4.1.1-0
 - Fixed template variable reference typos
 
