@@ -1,3 +1,7 @@
+* Fri Sep 30 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 5.1.0-0
+- Updated to use the version of 'simpcat' that does not conflict with
+  'puppetlabs/concat'.
+
 * Tue Aug 09 2016 Nick Markowski <nmarkowski@keywcorp.com> - 4.1.2-0
 - Fixed dependency cycle between autofs and stunnel with an ugly exec.
 
