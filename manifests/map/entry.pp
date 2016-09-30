@@ -54,8 +54,8 @@ define autofs::map::entry (
   }
 
   # This ensures that this define will only do this once.
-  if !defined(File["/etc/autofs/${_target}.map"]) {
-    concat_build { "autofs_${_target}":
+  if !defined(File["/etc/autofs/${target}.map"]) {
+    simpcat_build { "autofs_${_target}":
       order  => ['*.map'],
       target => "/etc/autofs/${_target}.map"
     }
@@ -65,13 +65,12 @@ define autofs::map::entry (
       owner     => 'root',
       group     => 'root',
       mode      => '0640',
-      audit     => 'content',
-      subscribe => Concat_build["autofs_${_target}"],
+      subscribe => Simpcat_build["autofs_${_target}"],
       notify    => Service['autofs']
     }
   }
 
-  concat_fragment { "autofs_${_target}+${_name}.map":
+  simpcat_fragment { "autofs_${_target}+${_name}.map":
     content => "${_key}\t${options}\t${location}\n"
   }
 }
