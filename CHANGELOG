@@ -1,3 +1,9 @@
+* Tue Oct 11 2016 Trevor Vaughan <tvaughan@onyxpoint.com> - 4.1.3-0
+- Fixed an issue where the filenames used by 'concat' could contain '/' which
+  made them unfit for system use.
+- Also added 'audit' options to the file resources that control the 'autofs'
+  service restarts.
+
 * Tue Aug 09 2016 Nick Markowski <nmarkowski@keywcorp.com> - 4.1.2-0
 - Fixed dependency cycle between autofs and stunnel with an ugly exec.
 

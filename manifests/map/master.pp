@@ -48,6 +48,8 @@ define autofs::map::master (
   $options = ''
   ) {
 
+  $_name = regsubst($name,'/','_','G')
+
   if !defined(File['/etc/auto.master']) {
     concat_build { 'autofs_master':
       order  => ['*.map'],
@@ -59,12 +61,13 @@ define autofs::map::master (
       owner     => 'root',
       group     => 'root',
       mode      => '0640',
+      audit     => 'content',
       subscribe => Concat_build['autofs_master'],
       notify    => Service['autofs']
     }
   }
 
-  concat_fragment { "autofs_master+${name}.map":
+  concat_fragment { "autofs_master+${_name}.map":
     content => template('autofs/auto.master.erb')
   }
 

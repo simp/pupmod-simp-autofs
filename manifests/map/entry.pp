@@ -41,33 +41,37 @@ define autofs::map::entry (
   $options = ''
 ) {
 
-  $l_name_no_slashes = regsubst($name,'/','_')
+  $_name = regsubst($name,'/','_','G')
+
+  # Convert the target '/' to '_' and delete the first one for readability
+  $_target = regsubst(regsubst($target,'/','_','G'), '_', '')
 
   if $name =~ /^wildcard(-|$)/ {
-    $l_key = '*'
+    $_key = '*'
   }
   else {
-    $l_key = $name
+    $_key = $name
   }
 
   # This ensures that this define will only do this once.
-  if !defined(File["/etc/autofs/${target}.map"]) {
-    concat_build { "autofs_${target}":
+  if !defined(File["/etc/autofs/${_target}.map"]) {
+    concat_build { "autofs_${_target}":
       order  => ['*.map'],
-      target => "/etc/autofs/${target}.map"
+      target => "/etc/autofs/${_target}.map"
     }
 
-    file { "/etc/autofs/${target}.map":
+    file { "/etc/autofs/${_target}.map":
       ensure    => $ensure,
       owner     => 'root',
       group     => 'root',
       mode      => '0640',
-      subscribe => Concat_build["autofs_${target}"],
+      audit     => 'content',
+      subscribe => Concat_build["autofs_${_target}"],
       notify    => Service['autofs']
     }
   }
 
-  concat_fragment { "autofs_${target}+${l_name_no_slashes}.map":
-    content => "${l_key}\t${options}\t${location}\n"
+  concat_fragment { "autofs_${_target}+${_name}.map":
+    content => "${_key}\t${options}\t${location}\n"
   }
 }
