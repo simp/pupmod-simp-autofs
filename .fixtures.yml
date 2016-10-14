@@ -1,24 +1,38 @@
 ---
 fixtures:
   repositories:
-    augeasproviders :
-      repo: "https://github.com/simp/augeasproviders"
-      branch: "simp-master"
+    augeasproviders:
+      branch: 5.X
+      repo: https://github.com/simp/augeasproviders
     augeasproviders_sysctl:
-      repo: "https://github.com/simp/augeasproviders_sysctl"
-      branch: "simp-master"
-    augeasproviders_core :
-      repo: "https://github.com/simp/augeasproviders_core"
-      branch: "simp-master"
-    simplib: "https://github.com/simp/pupmod-simp-simplib"
-    iptables: "https://github.com/simp/pupmod-simp-iptables"
-    nfs: "https://github.com/simp/pupmod-simp-nfs"
+      branch: 5.X
+      repo: https://github.com/simp/augeasproviders_sysctl
+    augeasproviders_core:
+      branch: 5.X
+      repo: https://github.com/simp/augeasproviders_core
+    simplib:
+      repo: https://github.com/simp/pupmod-simp-simplib
+      branch: 5.X
+    iptables:
+      repo: https://github.com/simp/pupmod-simp-iptables
+      branch: 5.X
+    nfs:
+      repo: https://github.com/simp/pupmod-simp-nfs
+      branch: 5.X
     stdlib:
-      repo: "https://github.com/simp/puppetlabs-stdlib"
-      branch: "simp-master"
-    sysctl: "https://github.com/simp/pupmod-simp-sysctl"
-    svckill : "https://github.com/simp/pupmod-simp-svckill"
-    simpcat : "https://github.com/simp/pupmod-simp-simpcat"
-    compliance: "https://github.com/simp/pupmod-simp-compliance_markup"
+      branch: 5.X
+      repo: https://github.com/simp/puppetlabs-stdlib
+    sysctl:
+      repo: https://github.com/simp/pupmod-simp-sysctl
+      branch: 5.X
+    svckill:
+      repo: https://github.com/simp/pupmod-simp-svckill
+      branch: 5.X
+    simpcat:
+      repo: https://github.com/simp/pupmod-simp-simpcat
+      branch: 5.X
+    compliance:
+      repo: https://github.com/simp/pupmod-simp-compliance_markup
+      branch: 5.X
   symlinks:
     autofs: "#{source_dir}"
