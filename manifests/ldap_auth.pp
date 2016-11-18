@@ -116,7 +116,6 @@ class autofs::ldap_auth (
     validate_absolute_path($credentialcache)
   }
 
-  compliance_map()
 
   file { $ldap_auth_conf_file:
     ensure  => 'file',
