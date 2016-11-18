@@ -155,7 +155,6 @@ class autofs (
   validate_array_member($use_misc_device,['yes','no'])
   validate_bool($enable_nfs)
 
-  compliance_map()
 
   file { '/etc/autofs':
     ensure => 'directory',

@@ -19,6 +19,5 @@ fixtures:
     sysctl: "https://github.com/simp/pupmod-simp-sysctl"
     svckill : "https://github.com/simp/pupmod-simp-svckill"
     simpcat : "https://github.com/simp/pupmod-simp-simpcat"
-    compliance: "https://github.com/simp/pupmod-simp-compliance_markup"
   symlinks:
     autofs: "#{source_dir}"
