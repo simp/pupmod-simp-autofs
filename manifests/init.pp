@@ -200,7 +200,7 @@ class autofs (
       # Ugly exec to break the dependency cycle Service[autofs] =>
       # Service[rpcbind] => Service[nfs] => Service[stunnel] => Service[autofs]
       exec { 'refresh autofs':
-        command => 'pkill -HUP -x automount',
+        command     => 'pkill -HUP -x automount',
         refreshonly => true
       }
       Service['stunnel'] ~> Exec['refresh autofs']

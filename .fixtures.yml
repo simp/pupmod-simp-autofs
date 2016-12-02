@@ -16,7 +16,6 @@ fixtures:
     stdlib:
       repo: "https://github.com/simp/puppetlabs-stdlib"
       branch: "simp-master"
-    sysctl: "https://github.com/simp/pupmod-simp-sysctl"
     svckill : "https://github.com/simp/pupmod-simp-svckill"
     simpcat : "https://github.com/simp/pupmod-simp-simpcat"
   symlinks:
