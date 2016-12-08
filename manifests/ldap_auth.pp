@@ -87,8 +87,8 @@
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class autofs::ldap_auth (
-  $user = hiera('ldap::bind_dn'),
-  $secret = hiera('ldap::bind_pw'),
+  $user = simplib::lookup('simp_options::ldap::bind_dn', { 'default_value' => "cn=hostAuth,ou=Hosts,%{hiera('simp_options::ldap::base_dn')}", 'value_type' => 'String' }),
+  $secret = simplib::lookup('simp_options::ldap::bind_pw'),
   $ldap_auth_conf_file = hiera('autofs::ldap_auth_conf_file','/etc/autofs_ldap_auth.conf'),
   $usetls = 'yes',
   $tlsrequired = 'yes',

@@ -6,3 +6,5 @@ Requires: pupmod-simp-nfs < 6.0.0-0
 Requires: pupmod-simp-nfs >= 5.0.0-0
 Requires: pupmod-simp-simpcat < 7.0.0-0
 Requires: pupmod-simp-simpcat >= 6.0.0-0
+Requires: pupmod-simp-simplib < 3.0.0-0
+Requires: pupmod-simp-simplib >= 2.1.0-0

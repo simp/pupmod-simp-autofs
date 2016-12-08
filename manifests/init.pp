@@ -100,6 +100,11 @@
 #   but will include the client portions that allow autofs to properly
 #   use an NFS connection.
 #
+# [*stunnel*]
+#   Type: Boolean
+#   If stunnel is in use, run:
+#     pkill -HUP -x automount
+#
 # == Authors
 #
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
@@ -126,7 +131,8 @@ class autofs (
   $map_hash_table_size = '',
   $use_misc_device = 'yes',
   $options = '',
-  $enable_nfs = true
+  $enable_nfs = true,
+  $stunnel = simplib::lookup('simp_options::stunnel', { 'default_value' => false, 'value_type' => Boolean } )
 ) {
 
   if $ldap_auth_conf_file {
@@ -154,6 +160,7 @@ class autofs (
   }
   validate_array_member($use_misc_device,['yes','no'])
   validate_bool($enable_nfs)
+  validate_bool($stunnel)
 
 
   file { '/etc/autofs':
@@ -195,15 +202,16 @@ class autofs (
     Package['nfs-utils'] -> Package['autofs']
     Service['autofs'] ~> Service[$::nfs::service_names::rpcbind]
 
-    if $::nfs::use_stunnel {
+    if $stunnel {
+      include '::stunnel'
 
       # Ugly exec to break the dependency cycle Service[autofs] =>
       # Service[rpcbind] => Service[nfs] => Service[stunnel] => Service[autofs]
-      exec { 'refresh autofs':
+      exec { 'refresh_autofs':
         command     => 'pkill -HUP -x automount',
         refreshonly => true
       }
-      Service['stunnel'] ~> Exec['refresh autofs']
+      Service['stunnel'] ~> Exec['refresh_autofs']
     }
   }
 
