@@ -20,7 +20,7 @@ describe 'autofs::ldap_auth' do
         context 'external_cert_empty' do
           let(:params) {{
             :authtype => 'external',
-            :external_cert => ''
+            :external_cert => false
           }}
 
           it {
@@ -33,7 +33,7 @@ describe 'autofs::ldap_auth' do
         context 'external_key_empty' do
           let(:params) {{
             :authtype => 'external',
-            :external_key => ''
+            :external_key => false
           }}
 
           it {
@@ -97,8 +97,8 @@ describe 'autofs::ldap_auth' do
           }}
 
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/authtype="EXTERNAL"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_cert="\/etc\/pki\/public\/#{facts[:fqdn]}\.pub"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_key="\/etc\/pki\/private\/#{facts[:fqdn]}\.pem"/) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_cert="\/etc\/pki\/simp\/public\/#{facts[:fqdn]}\.pub"/) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_key="\/etc\/pki\/simp\/private\/#{facts[:fqdn]}\.pem"/) }
         end
       end
     end

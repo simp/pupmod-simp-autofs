@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pp'
 
 describe 'autofs' do
   context 'supported operating systems' do
@@ -13,8 +14,8 @@ describe 'autofs' do
         it { is_expected.to contain_package('nfs-utils').that_comes_before('Package[autofs]') }
         it { is_expected.to_not contain_exec('refresh autofs') }
 
-        context 'with nfs and stunnel' do
-          let(:params) {{:stunnel => true}}
+        context 'with nfs and nfs::stunnel' do
+          let(:hieradata) { 'use_stunnel' }
           it { is_expected.to contain_class('nfs') }
           it { is_expected.to contain_exec('refresh_autofs') }
         end

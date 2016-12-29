@@ -110,58 +110,34 @@
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class autofs (
-  $master_map_name = 'auto.master',
-  $mount_timeout = '600',
-  $negative_timeout = '60',
-  $mount_wait = '',
-  $umount_wait = '',
-  $browse_mode = 'no',
-  $append_options = 'yes',
-  $logging = 'none',
-  $ldap_uri = '',
-  $ldap_timeout = '',
-  $ldap_network_timeout = '',
-  $search_base = '',
-  $map_object_class = '',
-  $entry_object_class = '',
-  $map_attribute = '',
-  $entry_attribute = '',
-  $value_attribute = '',
-  $ldap_auth_conf_file = '/etc/autofs_ldap_auth.conf',
-  $map_hash_table_size = '',
-  $use_misc_device = 'yes',
-  $options = '',
-  $enable_nfs = true,
-  $stunnel = simplib::lookup('simp_options::stunnel', { 'default_value' => false, 'value_type' => Boolean } )
+  String                                  $master_map_name      = 'auto.master',
+  Integer                                 $mount_timeout        = 600,
+  Integer                                 $negative_timeout     = 60,
+  Optional[Integer]                       $mount_wait           = undef,
+  Optional[Integer]                       $umount_wait          = undef,
+  Enum['yes','no']                        $browse_mode          = 'no',
+  Enum['yes','no']                        $append_options       = 'yes',
+  Enum['none','verbose','debug']          $logging              = 'none',
+  Optional[Simplib::Uri]                  $ldap_uri             = undef,
+  Optional[Integer]                       $ldap_timeout         = undef,
+  Optional[Integer]                       $ldap_network_timeout = undef,
+  Optional[String]                        $search_base          = undef,
+  Optional[String]                        $map_object_class     = undef,
+  Optional[String]                        $entry_object_class   = undef,
+  Optional[String]                        $map_attribute        = undef,
+  Optional[String]                        $entry_attribute      = undef,
+  Optional[String]                        $value_attribute      = undef,
+  Variant[Stdlib::Absolutepath,Boolean]   $ldap_auth_conf_file  = '/etc/autofs_ldap_auth.conf',
+  Optional[Integer]                       $map_hash_table_size  = undef,
+  Enum['yes','no']                        $use_misc_device      = 'yes',
+  Optional[String]                        $options              = undef,
+  Boolean                                 $enable_nfs           = true,
+  Boolean                                 $stunnel              = simplib::lookup('simp_options::stunnel', { 'default_value' => false } )
 ) {
 
   if $ldap_auth_conf_file {
     include '::autofs::ldap_auth'
-
-    validate_absolute_path($ldap_auth_conf_file)
   }
-
-  validate_integer($mount_timeout)
-  validate_integer($negative_timeout)
-  if !empty($mount_wait) {
-    validate_integer($mount_wait)
-  }
-  if !empty($umount_wait) {
-    validate_integer($umount_wait)
-  }
-  validate_array_member($browse_mode,['yes','no'])
-  validate_array_member($append_options,['yes','no'])
-  validate_array_member($logging,['none','verbose','debug'])
-  if !empty($ldap_timeout) {
-    validate_integer($ldap_timeout)
-  }
-  if !empty($ldap_network_timeout) {
-    validate_integer($ldap_network_timeout)
-  }
-  validate_array_member($use_misc_device,['yes','no'])
-  validate_bool($enable_nfs)
-  validate_bool($stunnel)
-
 
   file { '/etc/autofs':
     ensure => 'directory',
@@ -202,7 +178,7 @@ class autofs (
     Package['nfs-utils'] -> Package['autofs']
     Service['autofs'] ~> Service[$::nfs::service_names::rpcbind]
 
-    if $stunnel {
+    if $nfs::stunnel {
       include '::stunnel'
 
       # Ugly exec to break the dependency cycle Service[autofs] =>
@@ -214,5 +190,9 @@ class autofs (
       Service['stunnel'] ~> Exec['refresh_autofs']
     }
   }
-
+  else {
+    if $stunnel {
+      include '::stunnel'
+    }
+  }
 }

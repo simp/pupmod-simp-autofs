@@ -8,16 +8,16 @@
   external_cert="<%= @external_cert %>"
   external_key="<%= @external_key %>"
 <% end -%>
-<% if not @user.empty? then -%>
+<% if @user then -%>
   user="<%= @user %>"
 <% end -%>
-<% if not @secret.empty? then -%>
+<% if @secret then -%>
   secret="<%= @secret %>"
 <% end -%>
-<% if not @clientprinc.empty? then -%>
+<% if @clientprinc then -%>
   clientprinc="<%= @clientprinc %>"
 <% end -%>
-<% if not @credentialcache.empty? then -%>
+<% if @credentialcache then -%>
   credentialcache="<%= @credentialcache %>"
 <% end -%>
 />

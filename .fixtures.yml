@@ -14,6 +14,7 @@ fixtures:
     augeasproviders_grub :
       repo: "https://github.com/simp/augeasproviders_grub"
       branch: "simp-master"
+    concat: "https://github.com/simp/puppetlabs-concat"
     haveged: "https://github.com/simp/puppet-haveged"
     logrotate: "https://github.com/simp/pupmod-simp-logrotate"
     pki: "https://github.com/simp/pupmod-simp-pki"
@@ -24,9 +25,7 @@ fixtures:
     stunnel: "https://github.com/simp/pupmod-simp-stunnel"
     iptables: "https://github.com/simp/pupmod-simp-iptables"
     nfs: "https://github.com/simp/pupmod-simp-nfs"
-    stdlib:
-      repo: "https://github.com/simp/puppetlabs-stdlib"
-      branch: "simp-master"
+    stdlib: "https://github.com/simp/puppetlabs-stdlib"
     svckill : "https://github.com/simp/pupmod-simp-svckill"
   symlinks:
     autofs: "#{source_dir}"

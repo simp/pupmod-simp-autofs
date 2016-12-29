@@ -35,10 +35,10 @@
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 define autofs::map::entry (
-  $target,
-  $location,
-  $ensure = 'present',
-  $options = ''
+  String           $target,
+  String           $location,
+  String           $ensure    = 'present',
+  Optional[String] $options   = ''
 ) {
 
   $_name = regsubst($name,'/','_','G')

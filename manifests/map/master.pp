@@ -41,11 +41,11 @@
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 define autofs::map::master (
-  $mount_point,
-  $map_name,
-  $map_type = '',
-  $map_format = '',
-  $options = ''
+  Stdlib::Absolutepath  $mount_point,
+  String                $map_name,
+  Optional[Autofs::Maptype]       $map_type   = undef,
+  Optional[Enum['sun','hesiod']]  $map_format = undef,
+  Optional[String]                $options    = undef
   ) {
 
   $_name = regsubst($name,'/','_','G')
@@ -71,11 +71,4 @@ define autofs::map::master (
     content => template('autofs/auto.master.erb')
   }
 
-  validate_absolute_path($mount_point)
-  if !empty($map_type) {
-    validate_array_member($map_type,['file','program','yp','nisplus','hesiod','ldap','ldaps','multi'])
-  }
-  if !empty($map_format) {
-    validate_array_member($map_format,['sun','hesiod'])
-  }
 }

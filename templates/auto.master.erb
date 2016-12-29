@@ -12,13 +12,13 @@
 
   t_entry = "#{@mount_point}\t"
 
-  unless @map_type.empty?
+  if @map_type
     unless t_valid_map_types.include?(@map_type)
       raise Puppet::ParseError.new("Invalid map type '#{@map_type}' specified.")
     end
     t_entry << " #{@map_type}"
 
-    unless @map_format.empty?
+    if @map_format
       t_entry << ",#{@map_format}"
     end
 

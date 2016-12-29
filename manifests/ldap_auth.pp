@@ -87,35 +87,24 @@
 # * Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class autofs::ldap_auth (
-  $user = simplib::lookup('simp_options::ldap::bind_dn', { 'default_value' => "cn=hostAuth,ou=Hosts,%{hiera('simp_options::ldap::base_dn')}", 'value_type' => 'String' }),
-  $secret = simplib::lookup('simp_options::ldap::bind_pw'),
-  $ldap_auth_conf_file = hiera('autofs::ldap_auth_conf_file','/etc/autofs_ldap_auth.conf'),
-  $usetls = 'yes',
-  $tlsrequired = 'yes',
-  $authrequired = 'yes',
-  $authtype = 'LOGIN',
-  $external_cert = "/etc/pki/public/${::fqdn}.pub",
-  $external_key = "/etc/pki/private/${::fqdn}.pem",
-  $clientprinc = '',
-  $credentialcache = ''
+  String                                  $user                = simplib::lookup('simp_options::ldap::bind_dn', { 'default_value'   => "cn = hostAuth,ou = Hosts,%{hiera('simp_options::ldap::base_dn')}" }),
+  String                                  $secret              = simplib::lookup('simp_options::ldap::bind_pw'),
+  Stdlib::Absolutepath                    $ldap_auth_conf_file = hiera('autofs::ldap_auth_conf_file','/etc/autofs_ldap_auth.conf'),
+  Enum['yes','no']                        $usetls              = 'yes',
+  Enum['yes','no']                        $tlsrequired         = 'yes',
+  Enum['yes','no','autodetect','simple']  $authrequired        = 'yes',
+  Autofs::Authtype                        $authtype            = 'LOGIN',
+  Variant[Stdlib::Absolutepath,Boolean]   $external_cert       = "/etc/pki/simp/public/${::fqdn}.pub",
+  Variant[Stdlib::Absolutepath,Boolean]   $external_key        = "/etc/pki/simp/private/${::fqdn}.pem",
+  Optional[String]                        $clientprinc         = undef,
+  Optional[Stdlib::Absolutepath]          $credentialcache     = undef
   ) {
-  validate_array_member($usetls,['yes','no'])
-  validate_array_member($tlsrequired,['yes','no'])
-  validate_array_member($authrequired,['yes','no','autodetect','simple'])
-  validate_array_member(upcase($authtype),['GSSAPI','LOGIN','PLAIN','ANONYMOUS','DIGEST-MD5','EXTERNAL'])
+
   if upcase($authtype) == 'EXTERNAL' {
-    if empty($external_cert) or empty($external_key) {
+    if (!$external_cert or !$external_key) {
       fail '$external_cert and $external_key must be specified when setting $authtype to "EXTERNAL"'
     }
-    else {
-      validate_absolute_path($external_cert)
-      validate_absolute_path($external_key)
-    }
   }
-  if !empty($credentialcache) {
-    validate_absolute_path($credentialcache)
-  }
-
 
   file { $ldap_auth_conf_file:
     ensure  => 'file',
