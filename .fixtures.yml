@@ -1,6 +1,7 @@
 ---
 fixtures:
   repositories:
+    auditd: "https://github.com/simp/pupmod-simp-auditd"
     augeasproviders :
       repo: "https://github.com/simp/augeasproviders"
       branch: "simp-master"
@@ -10,13 +11,18 @@ fixtures:
     augeasproviders_core :
       repo: "https://github.com/simp/augeasproviders_core"
       branch: "simp-master"
-    simplib: "https://github.com/simp/pupmod-simp-simplib"
-    iptables: "https://github.com/simp/pupmod-simp-iptables"
-    nfs: "https://github.com/simp/pupmod-simp-nfs"
-    stdlib:
-      repo: "https://github.com/simp/puppetlabs-stdlib"
+    augeasproviders_grub :
+      repo: "https://github.com/simp/augeasproviders_grub"
       branch: "simp-master"
+    concat: "https://github.com/simp/puppetlabs-concat"
+    haveged: "https://github.com/simp/puppet-haveged"
+    logrotate: "https://github.com/simp/pupmod-simp-logrotate"
+    pki: "https://github.com/simp/pupmod-simp-pki"
+    rsyslog: "https://github.com/simp/pupmod-simp-rsyslog"
+    simplib: "https://github.com/simp/pupmod-simp-simplib"
+    simp_options: "https://github.com/simp/pupmod-simp-simp_options"
+    iptables: "https://github.com/simp/pupmod-simp-iptables"
+    stdlib: "https://github.com/simp/puppetlabs-stdlib"
     svckill : "https://github.com/simp/pupmod-simp-svckill"
-    simpcat : "https://github.com/simp/pupmod-simp-simpcat"
   symlinks:
     autofs: "#{source_dir}"

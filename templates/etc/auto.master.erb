@@ -1,0 +1,16 @@
+<%
+  t_entry = "#{@mount_point} "
+
+  if @map_type
+    t_entry << " #{@map_type}"
+
+    if @map_format
+      t_entry << ",#{@map_format}"
+    end
+
+    t_entry << ":"
+  end
+
+  t_entry << "#{@map_name} #{@options}"
+-%>
+<%= t_entry %>

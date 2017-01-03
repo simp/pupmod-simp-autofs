@@ -10,51 +10,20 @@ describe 'autofs::ldap_auth' do
         params = { :ldap_auth_conf_file => '/conf/file' }
         let(:params) {params}
 
-        context 'base' do
-          it { is_expected.to create_class('autofs::ldap_auth') }
-          it { is_expected.to create_file(params[:ldap_auth_conf_file]) }
-          # Not sure why this test is failing. May be a bug in rspec-puppet
-          # it { is_expected.to contain_file(params[:ldap_auth_conf_file]).that_notifies('Service[autofs]') }
-        end
-
-        context 'external_cert_empty' do
-          let(:params) {{
-            :authtype => 'external',
-            :external_cert => ''
-          }}
-
-          it {
-            expect {
-              is_expected.to create_class('autofs::ldap_auth')
-            }.to raise_error(Puppet::Error,/\$external_cert and \$external_key must be specified when setting \$authtype to "EXTERNAL"/)
-          }
-        end
-
-        context 'external_key_empty' do
-          let(:params) {{
-            :authtype => 'external',
-            :external_key => ''
-          }}
-
-          it {
-            expect {
-              is_expected.to create_class('autofs::ldap_auth')
-            }.to raise_error(Puppet::Error,/\$external_cert and \$external_key must be specified when setting \$authtype to "EXTERNAL"/)
-          }
-        end
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to create_class('autofs::ldap_auth') }
+        it { is_expected.to create_file(params[:ldap_auth_conf_file]) }
 
         context 'base_auth_conf_file' do
-          facts = base_facts.dup
-          facts[:fqdn] = 'host.test.net'
-
           let(:facts) {facts}
           let(:params) {{
             :user                => 'foo',
             :secret              => 'bar',
-            :authtype            => 'login',
+            :authtype            => 'LOGIN',
             :ldap_auth_conf_file => '/conf/file'
           }}
 
+          it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/usetls="yes"/) }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/tlsrequired="yes"/) }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/authrequired="yes"/) }
@@ -68,10 +37,6 @@ describe 'autofs::ldap_auth' do
         end
 
         context 'optional_args_in_base_auth_conf_file' do
-          facts = base_facts.dup
-          facts[:fqdn] = 'host.test.net'
-
-          let(:facts) {facts}
           let(:params) {{
             :user                => 'foo',
             :secret              => 'bar',
@@ -80,15 +45,15 @@ describe 'autofs::ldap_auth' do
             :credentialcache     => '/tmp/foo'
           }}
 
+          it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/clientprinc="foo\/bar"/) }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/credentialcache="\/tmp\/foo"/) }
         end
 
         context 'external_certs_in_base_auth_conf_file' do
-          facts = base_facts.dup
-          facts[:fqdn] = 'host.test.net'
-
-          let(:facts) {facts}
+          let(:pre_condition){
+            'class { "autofs": pki => true }'
+          }
           let(:params) {{
             :user                => 'foo',
             :secret              => 'bar',
@@ -96,9 +61,10 @@ describe 'autofs::ldap_auth' do
             :ldap_auth_conf_file => '/conf/file'
           }}
 
+          it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/authtype="EXTERNAL"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_cert="\/etc\/pki\/public\/#{facts[:fqdn]}\.pub"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/external_key="\/etc\/pki\/private\/#{facts[:fqdn]}\.pem"/) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_cert="/etc/autofs/pki/simp/public/#{facts[:fqdn]}\.pub"}) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_key="/etc/autofs/pki/simp/private/#{facts[:fqdn]}\.pem"}) }
         end
       end
     end

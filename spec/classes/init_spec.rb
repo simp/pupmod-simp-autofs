@@ -1,25 +1,26 @@
 require 'spec_helper'
+require 'pp'
 
 describe 'autofs' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
-        let(:facts) { facts }
+        let(:facts) { facts.merge({:haveged_startup_provider => 'systemd'}) }
         let(:hieradata) { class_name }
 
+        it { is_expected.to compile.with_all_deps }
         it { is_expected.to create_class('autofs') }
-        it { is_expected.to contain_class('nfs') }
-        it { is_expected.to contain_class('autofs::ldap_auth') }
-        it { is_expected.to contain_package('nfs-utils').that_comes_before('Package[autofs]') }
+        it { is_expected.to create_file('/etc/sysconfig/autofs') }
+        it { is_expected.to contain_class('autofs::install') }
+        it { is_expected.to contain_class('autofs::service') }
+        it { is_expected.to_not contain_class('autofs::ldap_auth') }
 
-        context 'no_nfs' do
-          let(:hieradata) { "#{class_name}_no_nfs" }
-          it { is_expected.not_to contain_package('nfs-utils') }
-        end
+        context 'when using LDAP' do
+          let(:params){{
+            :ldap => true
+          }}
 
-        describe 'no_ldap_auth_conf_file' do
-          let(:hieradata) { "#{class_name}_no_ldap_auth_conf_file" }
-          it { is_expected.not_to contain_class('autofs::ldap_auth') }
+          it { is_expected.to compile.with_all_deps }
         end
       end
     end

@@ -1,2 +1,2 @@
 ---
-'autofs::ldap_auth_conf_file': false
+autofs::ldap_auth_conf_file: false

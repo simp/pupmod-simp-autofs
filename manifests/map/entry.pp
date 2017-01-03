@@ -1,50 +1,47 @@
-# == Define autofs::map::entry
+# Add an entry to the map specified in ``$name``
 #
-# Add an entry to the map specified in $name.
+# The map file will be created as ``/etc/autofs/$target.map``.
 #
-# The map file will be created as /etc/autofs/$target.map.
+# You will need to create an appropriate ``map::master`` entry for this to be
+# activated.
 #
-# You will need to create an appropriate map::master entry for this to
-# be activated.
+# @see autofs(5)
 #
-# For additional details see autofs(5)
+# @param name
+#   In this case, ``$name`` is mapped to the ``key`` entry as described in
+#   ``autofs(5)``
 #
-# == Parameters
+#   * The special wildcard entry ``*`` is specified by entering the name as
+#     ``wildcard-<anything_unique>``
 #
-# [*name*]
-#   Type: String
-#   In this case, $name is mapped to the 'key' entry as described in
-#   autofs(5). However, the special wildcard entry '*' is specified by
-#   entering the name as 'wildcard-<anything_unique>'.
+# @param target
+#   The name (**not the full path**) of the map file under which you would like
+#   this entry placed
 #
-# [*target*]
-#   Type: String
-#   The name of the map file under which you would like this entry
-#   placed.
+#   * Required unless ``$content`` is set
 #
-# [*ensure*]
-#   Type: ['present','absent']
-#   Whether to add or delete the target file.
+# @param location
+#   The location that should be mounted
 #
-# [*options*]
-#   Type: String
-#   The NFS options that you would like to add to your map.
+#   * Required unless ``$content`` is set
+#   * This should be the full path on the remote server
+#       * Example: ``1.2.3.4:/my/files``
+#   * See ``autofs(5)`` for details
 #
-# == Authors
+# @param options
+#   The NFS ``options`` that you would like to add to your map
 #
-# * Trevor Vaughan <tvaughan@onyxpoint.com>
+# @param content
+#   Use this content, without validation, ignoring all other options
+#
+# @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 define autofs::map::entry (
-  $target,
-  $location,
-  $ensure = 'present',
-  $options = ''
+  Optional[String] $target   = undef,
+  Optional[String] $location = undef,
+  Optional[String] $options  = undef,
+  Optional[String] $content  = undef
 ) {
-
-  $_name = regsubst($name,'/','_','G')
-
-  # Convert the target '/' to '_' and delete the first one for readability
-  $_target = regsubst(regsubst($target,'/','_','G'), '_', '')
 
   if $name =~ /^wildcard(-|$)/ {
     $_key = '*'
@@ -53,24 +50,30 @@ define autofs::map::entry (
     $_key = $name
   }
 
-  # This ensures that this define will only do this once.
-  if !defined(File["/etc/autofs/${target}.map"]) {
-    simpcat_build { "autofs_${_target}":
-      order  => ['*.map'],
-      target => "/etc/autofs/${_target}.map"
+  if $content {
+    $_content = $content
+  }
+  else {
+    if !($target and $location) {
+      fail('You must specify either "$content" or "$target" and "$location"')
     }
 
-    file { "/etc/autofs/${_target}.map":
-      ensure    => $ensure,
-      owner     => 'root',
-      group     => 'root',
-      mode      => '0640',
-      subscribe => Simpcat_build["autofs_${_target}"],
-      notify    => Service['autofs']
-    }
+    $_content = "${_key}\t${options}\t${location}"
   }
 
-  simpcat_fragment { "autofs_${_target}+${_name}.map":
-    content => "${_key}\t${options}\t${location}\n"
+  ensure_resource('concat',"/etc/autofs/${target}.map",
+    {
+      owner          => 'root',
+      group          => 'root',
+      mode           => '0640',
+      ensure_newline => true,
+      warn           => true,
+      notify         => Class['autofs::service']
+    }
+  )
+
+  concat::fragment { "autofs_${target}_${name}":
+    target  => "/etc/autofs/${target}.map",
+    content => $_content
   }
 }
