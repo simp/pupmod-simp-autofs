@@ -1,1 +1,1 @@
-type Autofs::Authtype = Pattern[/(?i:GSSAPI|LOGIN|PLAIN|ANONYMOUS|DIGEST-MD5|EXTERNAL)/]
+type Autofs::Authtype = Enum['GSSAPI','LOGIN','PLAIN','ANONYMOUS','DIGEST-MD5','EXTERNAL']
