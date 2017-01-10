@@ -31,7 +31,7 @@
 #   Path and name of the public SSL certificate
 #
 class autofs::config::pki(
-  Stdlib::Absolutepath  $app_pki_external_source  = simplib::lookup('simp_options::pki::source', { 'default_value' => '/etc/simp/pki' }),
+  Stdlib::Absolutepath  $app_pki_external_source  = simplib::lookup('simp_options::pki::source', { 'default_value' => '/etc/pki/simp' }),
   Stdlib::Absolutepath  $app_pki_dir              = '/etc/pki/simp_apps/autofs/pki',
   Stdlib::Absolutepath  $app_pki_cert             = "${app_pki_dir}/public/${::fqdn}.pub",
   Stdlib::Absolutepath  $app_pki_key              = "${app_pki_dir}/private/${::fqdn}.pem"
