@@ -77,10 +77,17 @@
 #   Enable LDAP lookups
 #
 # @param pki
-#   Enable the SIMP PKI subsystem and copy in the certificates
-#
-# @param app_pki_dir
-#   The target directory for PKI certificates if ``pki`` is ``true``
+#   * If 'simp', include SIMP's pki module and use pki::copy to manage
+#     application certs in /etc/pki/simp_apps/autofs/pki
+#   * If true, do *not* include SIMP's pki module, but still use pki::copy
+#     to manage certs in /etc/pki/simp_apps/autofs/pki
+#   * If false, do not include SIMP's pki module and do not use pki::copy
+#     to manage certs.  You will need to appropriately assign a subset of:
+#     * app_pki_dir
+#     * app_pki_key
+#     * app_pki_cert
+#     * app_pki_ca
+#     * app_pki_ca_dir
 #
 # @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
@@ -106,8 +113,7 @@ class autofs (
   Boolean                        $use_misc_device      = true,
   Optional[String]               $options              = undef,
   Boolean                        $ldap                 = simplib::lookup('simp_options::ldap', { 'default_value' => false }),
-  Boolean                        $pki                  = simplib::lookup('simp_options::pki', { 'default_value' => false }),
-  Stdlib::Absolutepath           $app_pki_dir          = '/etc/autofs'
+  Variant[Enum['simp'],Boolean]  $pki                  = simplib::lookup('simp_options::pki', { 'default_value' => false })
 ) {
 
   contain '::autofs::install'

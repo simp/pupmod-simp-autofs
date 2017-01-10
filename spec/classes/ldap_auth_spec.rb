@@ -52,7 +52,7 @@ describe 'autofs::ldap_auth' do
 
         context 'external_certs_in_base_auth_conf_file' do
           let(:pre_condition){
-            'class { "autofs": pki => true }'
+            'class { "autofs": pki => "simp" }'
           }
           let(:params) {{
             :user                => 'foo',
@@ -63,8 +63,8 @@ describe 'autofs::ldap_auth' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/authtype="EXTERNAL"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_cert="/etc/autofs/pki/simp/public/#{facts[:fqdn]}\.pub"}) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_key="/etc/autofs/pki/simp/private/#{facts[:fqdn]}\.pem"}) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_cert="/etc/pki/simp_apps/autofs/pki/public/#{facts[:fqdn]}\.pub"}) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_key="/etc/pki/simp_apps/autofs/pki/private/#{facts[:fqdn]}\.pem"}) }
         end
       end
     end
