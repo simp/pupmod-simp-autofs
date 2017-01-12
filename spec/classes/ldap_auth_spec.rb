@@ -63,8 +63,10 @@ describe 'autofs::ldap_auth' do
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(/authtype="EXTERNAL"/) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_cert="/etc/pki/simp_apps/autofs/pki/public/#{facts[:fqdn]}\.pub"}) }
-          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_key="/etc/pki/simp_apps/autofs/pki/private/#{facts[:fqdn]}\.pem"}) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_cert="/etc/pki/simp_apps/autofs/x509/public/#{facts[:fqdn]}\.pub"}) }
+          it { is_expected.to contain_file(params[:ldap_auth_conf_file]).with_content(%r{external_key="/etc/pki/simp_apps/autofs/x509/private/#{facts[:fqdn]}\.pem"}) }
+          it { is_expected.to create_pki__copy('autofs')}
+          it { is_expected.to create_file('/etc/pki/simp_apps/autofs/x509')}
         end
       end
     end

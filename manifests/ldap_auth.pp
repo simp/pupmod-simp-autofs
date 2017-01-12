@@ -81,8 +81,8 @@ class autofs::ldap_auth (
   Boolean                                       $tlsrequired         = true,
   Variant[Boolean, Enum['autodetect','simple']] $authrequired        = true,
   Autofs::Authtype                              $authtype            = 'LOGIN',
-  Stdlib::Absolutepath                          $external_cert       = "/etc/pki/simp_apps/autofs/pki/public/${facts['fqdn']}.pub",
-  Stdlib::Absolutepath                          $external_key        = "/etc/pki/simp_apps/autofs/pki/private/${facts['fqdn']}.pem",
+  Stdlib::Absolutepath                          $external_cert       = "/etc/pki/simp_apps/autofs/x509/public/${facts['fqdn']}.pub",
+  Stdlib::Absolutepath                          $external_key        = "/etc/pki/simp_apps/autofs/x509/private/${facts['fqdn']}.pem",
   Optional[String]                              $clientprinc         = undef,
   Optional[Stdlib::Absolutepath]                $credentialcache     = undef
 ) {
