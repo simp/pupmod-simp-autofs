@@ -16,6 +16,7 @@ class autofs::install {
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
-    mode   => '0640'
+    mode   => '0640',
+    purge  => true
   }
 }

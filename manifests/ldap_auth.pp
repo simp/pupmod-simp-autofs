@@ -91,7 +91,7 @@ class autofs::ldap_auth (
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
-    mode    => '0640',
+    mode    => '0600',
     content => template("${module_name}/etc/ldap_auth.erb")
   }
 
