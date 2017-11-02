@@ -73,6 +73,14 @@
 #
 #   * See ``automount(8)`` for details
 #
+# @param samba_package_ensure
+#   The value to pass to the `ensure` parameter of the `samba-utils` package.
+#   Defaults to `simp_options::package_ensure` or `installed`
+#
+# @param autofs_package_ensure
+#   The value to pass to the `ensure` parameter of the `autofs` package.
+#   Defaults to `simp_options::package_ensure` or `installed`
+#
 # @param ldap
 #   Enable LDAP lookups
 #
@@ -92,28 +100,30 @@
 # @author Trevor Vaughan <tvaughan@onyxpoint.com>
 #
 class autofs (
-  String                         $master_map_name      = 'auto.master',
-  Integer                        $mount_timeout        = 600,
-  Integer                        $negative_timeout     = 60,
-  Optional[Integer]              $mount_wait           = undef,
-  Optional[Integer]              $umount_wait          = undef,
-  Boolean                        $browse_mode          = false,
-  Boolean                        $append_options       = true,
-  Enum['none','verbose','debug'] $logging              = 'none',
-  Optional[Simplib::Uri]         $ldap_uri             = undef,
-  Optional[Integer]              $ldap_timeout         = undef,
-  Optional[Integer]              $ldap_network_timeout = undef,
-  Optional[String]               $search_base          = undef,
-  Optional[String]               $map_object_class     = undef,
-  Optional[String]               $entry_object_class   = undef,
-  Optional[String]               $map_attribute        = undef,
-  Optional[String]               $entry_attribute      = undef,
-  Optional[String]               $value_attribute      = undef,
-  Optional[Integer]              $map_hash_table_size  = undef,
-  Boolean                        $use_misc_device      = true,
-  Optional[String]               $options              = undef,
-  Boolean                        $ldap                 = simplib::lookup('simp_options::ldap', { 'default_value' => false }),
-  Variant[Enum['simp'],Boolean]  $pki                  = simplib::lookup('simp_options::pki', { 'default_value' => false })
+  String                         $master_map_name       = 'auto.master',
+  Integer                        $mount_timeout         = 600,
+  Integer                        $negative_timeout      = 60,
+  Optional[Integer]              $mount_wait            = undef,
+  Optional[Integer]              $umount_wait           = undef,
+  Boolean                        $browse_mode           = false,
+  Boolean                        $append_options        = true,
+  Enum['none','verbose','debug'] $logging               = 'none',
+  Optional[Simplib::Uri]         $ldap_uri              = undef,
+  Optional[Integer]              $ldap_timeout          = undef,
+  Optional[Integer]              $ldap_network_timeout  = undef,
+  Optional[String]               $search_base           = undef,
+  Optional[String]               $map_object_class      = undef,
+  Optional[String]               $entry_object_class    = undef,
+  Optional[String]               $map_attribute         = undef,
+  Optional[String]               $entry_attribute       = undef,
+  Optional[String]               $value_attribute       = undef,
+  Optional[Integer]              $map_hash_table_size   = undef,
+  Boolean                        $use_misc_device       = true,
+  Optional[String]               $options               = undef,
+  String                         $samba_package_ensure  = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' }),
+  String                         $autofs_package_ensure = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' }),
+  Boolean                        $ldap                  = simplib::lookup('simp_options::ldap', { 'default_value' => false }),
+  Variant[Enum['simp'],Boolean]  $pki                   = simplib::lookup('simp_options::pki', { 'default_value' => false })
 ) {
 
   contain '::autofs::install'
@@ -124,7 +134,7 @@ class autofs (
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => template("${module_name}/etc/sysconfig/autofs.erb"),
+    content => template("autofs/etc/sysconfig/autofs.erb"),
     require => Class['autofs::install'],
     notify  => Class['autofs::service']
   }

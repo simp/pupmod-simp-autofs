@@ -1,3 +1,10 @@
+* Thu Nov 02 2017 Nick Miller <nick.miller@onyxpoint.com> - 6.1.0-0
+- Allowed for control of specific versions of the packages in this
+  module with two new parameters:
+  - samba_package_ensure
+  - autofs_package_ensure
+- Support Puppet 5
+
 * Fri Aug 18 2017 Liz Nemsick <lnemsick.simp@gmail.com> - 6.0.2-0
 - Update concat version in metadata.json
 
