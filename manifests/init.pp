@@ -134,7 +134,7 @@ class autofs (
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => template("autofs/etc/sysconfig/autofs.erb"),
+    content => template('autofs/etc/sysconfig/autofs.erb'),
     require => Class['autofs::install'],
     notify  => Class['autofs::service']
   }
