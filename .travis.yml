@@ -25,9 +25,6 @@ before_install:
   - rm -f Gemfile.lock
 
 jobs:
-  allow_failures:
-    - env: STRICT_VARIABLES=yes TRUSTED_NODE_DATA=yes PUPPET_VERSION="~> 5.0"
-
   include:
     - stage: check
       rvm: 2.4.1
@@ -72,22 +69,19 @@ jobs:
       before_deploy:
         - "export PUPMOD_METADATA_VERSION=`ruby -r json -e \"puts JSON.parse(File.read('metadata.json')).fetch('version')\"`"
         - '[[ $TRAVIS_TAG =~ ^simp-${PUPMOD_METADATA_VERSION}$|^${PUPMOD_METADATA_VERSION}$ ]]'
-
-
-
-deploy:
-  - provider: releases
-    api_key:
-      secure: "c8FJj8AhR+Gf107JJjq98e9HzIr1PObAWXrwTtxoiFO9eEKVblTlbtTIRNbSc6IGR9mHAbBrYHkwtmxS3KYn1VG2zAK2Kz0dwinDhf46hpcPSbNpzm7k03VNu5NXRf0M8zVRJpntF1C6jX/MWeNggQHRf4dVp8m04rOiJzYfGjz6ZtaYuZkNKLtBgjPulkjqjgBB6E3QQLIuOdn7LxkLCUKomi/PfKJeHOo0nptpL4bCUIgUsHcj5CXzwTMvzdr6CbFJap+6EDn9sfcTwIPvShJA4vQ66wB+AvZluaSK71f7YzPYyp/EQzPTsP9CvdqkY5oVOwZ/8s4WH9g+PWs+t1E8v4uTfomzJLuGWppox7cfMANL9bZvqClFx7wkrvYuSZgWP4SP1c/mABviHfHRQcu83N+3F2mtHN+cGAABCxpC+5ihiDhy1HfpNwZXi0RE9unkBUtrPEICrM9RZOOxxubhItPcoOmzFJgjexySr3XFXGYNEU2TEbcFQlvQH3B9NxVdhGeQMgY7ulcE4aD5BpIyXu8TDzuE1948IugtWtRw4CvODbXYaf+7vIdvkuCY3gTCPpNtudKHpI/6fBHp/yCAvIX29jhQ7QQ+ELD2CPIdST5VJwYfaKzoAXhEcF2/2szJ2BuO7AJs9iIyX+kkQohUsLGL5YfdqYbwaZJM6zs="
-    skip_cleanup: true
-    on:
-      tags: true
-      condition: '($SKIP_FORGE_PUBLISH != true)'
-  - provider: puppetforge
-    user: simp
-    password:
-      secure: "dOj7Bz6UK+4VcQvxlBKhHkF1NXwBbpIE3+BbunSlf+yBJNw5DaBVgF8kND/X3oYvbh6hiNeYPVhUYUsIg5WMvHWXogl6TDYtYYzco20nsRWZ3znXCUGsgKW07K1PmZZdtXudzphkKtbtH/zfGRtxOd4uvoENlwacMClNjvZOhMbo99bXER/Urzd20KtWXqxkAKwhu0gjCtbgeMCFcT5TJ+Pb17zR46E9GoCI26DmSkzl9xcN8t0LQ3A8oEv6qadZTNP2ZevS4fUeCK3Ceu7UDdLLe4mPAm3fhHt3C3mJIT4JCbzz2FduzSUGDp/Ts+QRIf5crjDuw7XQD6ewqnMYPZEowVcZ4eYBL/qu/OTb/tJJHFy8nHUB50vS7woxp7Kp/83yMAUiZ1P98YSCsPRn+7NkE1KKKTO0SAQgdK6DqtvL6gjNp/n/vEUFDfo88xY6b6i0i9pXQqCblxjdgCkPHxfzAzBp+ySKeDu6kmbLgqoegfK7fX61mw+jbx5txR9qNdWoRfYY4BY30VeJMoooHDNf+a369Htzc7h6k88F62C3A2vfhpKNK5svDEET+FzEGtJRYo9DNWo9ojIMC8dog7U8j56CLJb4FAsGZhQvc/EuC5dTuoiZ12p3owXVqZwz3trYKsetNuivfVD6kvN0noexFDjl8ceOcTGEgcZ7YBs="
-    on:
-      tags: true
-      rvm: 2.1.9
-      condition: '($SKIP_FORGE_PUBLISH != true)'
+      deploy:
+        - provider: releases
+          api_key:
+            secure: "c8FJj8AhR+Gf107JJjq98e9HzIr1PObAWXrwTtxoiFO9eEKVblTlbtTIRNbSc6IGR9mHAbBrYHkwtmxS3KYn1VG2zAK2Kz0dwinDhf46hpcPSbNpzm7k03VNu5NXRf0M8zVRJpntF1C6jX/MWeNggQHRf4dVp8m04rOiJzYfGjz6ZtaYuZkNKLtBgjPulkjqjgBB6E3QQLIuOdn7LxkLCUKomi/PfKJeHOo0nptpL4bCUIgUsHcj5CXzwTMvzdr6CbFJap+6EDn9sfcTwIPvShJA4vQ66wB+AvZluaSK71f7YzPYyp/EQzPTsP9CvdqkY5oVOwZ/8s4WH9g+PWs+t1E8v4uTfomzJLuGWppox7cfMANL9bZvqClFx7wkrvYuSZgWP4SP1c/mABviHfHRQcu83N+3F2mtHN+cGAABCxpC+5ihiDhy1HfpNwZXi0RE9unkBUtrPEICrM9RZOOxxubhItPcoOmzFJgjexySr3XFXGYNEU2TEbcFQlvQH3B9NxVdhGeQMgY7ulcE4aD5BpIyXu8TDzuE1948IugtWtRw4CvODbXYaf+7vIdvkuCY3gTCPpNtudKHpI/6fBHp/yCAvIX29jhQ7QQ+ELD2CPIdST5VJwYfaKzoAXhEcF2/2szJ2BuO7AJs9iIyX+kkQohUsLGL5YfdqYbwaZJM6zs="
+          skip_cleanup: true
+          on:
+            tags: true
+            condition: '($SKIP_FORGE_PUBLISH != true)'
+        - provider: puppetforge
+          user: simp
+          password:
+            secure: "dOj7Bz6UK+4VcQvxlBKhHkF1NXwBbpIE3+BbunSlf+yBJNw5DaBVgF8kND/X3oYvbh6hiNeYPVhUYUsIg5WMvHWXogl6TDYtYYzco20nsRWZ3znXCUGsgKW07K1PmZZdtXudzphkKtbtH/zfGRtxOd4uvoENlwacMClNjvZOhMbo99bXER/Urzd20KtWXqxkAKwhu0gjCtbgeMCFcT5TJ+Pb17zR46E9GoCI26DmSkzl9xcN8t0LQ3A8oEv6qadZTNP2ZevS4fUeCK3Ceu7UDdLLe4mPAm3fhHt3C3mJIT4JCbzz2FduzSUGDp/Ts+QRIf5crjDuw7XQD6ewqnMYPZEowVcZ4eYBL/qu/OTb/tJJHFy8nHUB50vS7woxp7Kp/83yMAUiZ1P98YSCsPRn+7NkE1KKKTO0SAQgdK6DqtvL6gjNp/n/vEUFDfo88xY6b6i0i9pXQqCblxjdgCkPHxfzAzBp+ySKeDu6kmbLgqoegfK7fX61mw+jbx5txR9qNdWoRfYY4BY30VeJMoooHDNf+a369Htzc7h6k88F62C3A2vfhpKNK5svDEET+FzEGtJRYo9DNWo9ojIMC8dog7U8j56CLJb4FAsGZhQvc/EuC5dTuoiZ12p3owXVqZwz3trYKsetNuivfVD6kvN0noexFDjl8ceOcTGEgcZ7YBs="
+          on:
+            tags: true
+            rvm: 2.1.9
+            condition: '($SKIP_FORGE_PUBLISH != true)'
