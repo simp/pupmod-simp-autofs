@@ -13,6 +13,7 @@ sudo: false
 
 bundler_args: --without development system_tests --path .vendor
 
+
 notifications:
   email: false
 
@@ -33,8 +34,10 @@ jobs:
         - bundle exec rake check:dot_underscore
         - bundle exec rake check:test_file
         - bundle exec rake pkg:check_version
+        - bundle exec rake lint
         - bundle exec rake metadata_lint
         - bundle exec rake pkg:compare_latest_tag
+        - bundle exec rake pkg:create_tag_changelog
         - bundle exec puppet module build
 
     - stage: spec
@@ -61,7 +64,6 @@ jobs:
       script:
         - bundle exec rake spec
 
-    # This needs to be last since we have an acceptance test
     - stage: deploy
       rvm: 2.4.1
       script:
@@ -83,5 +85,5 @@ jobs:
             secure: "dOj7Bz6UK+4VcQvxlBKhHkF1NXwBbpIE3+BbunSlf+yBJNw5DaBVgF8kND/X3oYvbh6hiNeYPVhUYUsIg5WMvHWXogl6TDYtYYzco20nsRWZ3znXCUGsgKW07K1PmZZdtXudzphkKtbtH/zfGRtxOd4uvoENlwacMClNjvZOhMbo99bXER/Urzd20KtWXqxkAKwhu0gjCtbgeMCFcT5TJ+Pb17zR46E9GoCI26DmSkzl9xcN8t0LQ3A8oEv6qadZTNP2ZevS4fUeCK3Ceu7UDdLLe4mPAm3fhHt3C3mJIT4JCbzz2FduzSUGDp/Ts+QRIf5crjDuw7XQD6ewqnMYPZEowVcZ4eYBL/qu/OTb/tJJHFy8nHUB50vS7woxp7Kp/83yMAUiZ1P98YSCsPRn+7NkE1KKKTO0SAQgdK6DqtvL6gjNp/n/vEUFDfo88xY6b6i0i9pXQqCblxjdgCkPHxfzAzBp+ySKeDu6kmbLgqoegfK7fX61mw+jbx5txR9qNdWoRfYY4BY30VeJMoooHDNf+a369Htzc7h6k88F62C3A2vfhpKNK5svDEET+FzEGtJRYo9DNWo9ojIMC8dog7U8j56CLJb4FAsGZhQvc/EuC5dTuoiZ12p3owXVqZwz3trYKsetNuivfVD6kvN0noexFDjl8ceOcTGEgcZ7YBs="
           on:
             tags: true
-            rvm: 2.1.9
+            rvm: 2.4.1
             condition: '($SKIP_FORGE_PUBLISH != true)'
