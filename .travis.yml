@@ -78,6 +78,7 @@ jobs:
       before_deploy:
         - "export PUPMOD_METADATA_VERSION=`ruby -r json -e \"puts JSON.parse(File.read('metadata.json')).fetch('version')\"`"
         - '[[ $TRAVIS_TAG =~ ^simp-${PUPMOD_METADATA_VERSION}$|^${PUPMOD_METADATA_VERSION}$ ]]'
+      deploy:
         - provider: releases
           api_key:
             secure: "c8FJj8AhR+Gf107JJjq98e9HzIr1PObAWXrwTtxoiFO9eEKVblTlbtTIRNbSc6IGR9mHAbBrYHkwtmxS3KYn1VG2zAK2Kz0dwinDhf46hpcPSbNpzm7k03VNu5NXRf0M8zVRJpntF1C6jX/MWeNggQHRf4dVp8m04rOiJzYfGjz6ZtaYuZkNKLtBgjPulkjqjgBB6E3QQLIuOdn7LxkLCUKomi/PfKJeHOo0nptpL4bCUIgUsHcj5CXzwTMvzdr6CbFJap+6EDn9sfcTwIPvShJA4vQ66wB+AvZluaSK71f7YzPYyp/EQzPTsP9CvdqkY5oVOwZ/8s4WH9g+PWs+t1E8v4uTfomzJLuGWppox7cfMANL9bZvqClFx7wkrvYuSZgWP4SP1c/mABviHfHRQcu83N+3F2mtHN+cGAABCxpC+5ihiDhy1HfpNwZXi0RE9unkBUtrPEICrM9RZOOxxubhItPcoOmzFJgjexySr3XFXGYNEU2TEbcFQlvQH3B9NxVdhGeQMgY7ulcE4aD5BpIyXu8TDzuE1948IugtWtRw4CvODbXYaf+7vIdvkuCY3gTCPpNtudKHpI/6fBHp/yCAvIX29jhQ7QQ+ELD2CPIdST5VJwYfaKzoAXhEcF2/2szJ2BuO7AJs9iIyX+kkQohUsLGL5YfdqYbwaZJM6zs="
