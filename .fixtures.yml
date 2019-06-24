@@ -10,5 +10,6 @@ fixtures:
     pki: https://github.com/simp/pupmod-simp-pki
     simplib: https://github.com/simp/pupmod-simp-simplib
     stdlib: https://github.com/simp/puppetlabs-stdlib
+    simp_options: https://github.com/simp/pupmod-simp-simp_options
   symlinks:
     autofs: "#{source_dir}"
