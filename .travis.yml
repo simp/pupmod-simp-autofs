@@ -95,7 +95,7 @@ jobs:
       deploy:
         - provider: releases
           api_key:
-            secure: "k9Nx0/6V6FEOzYPhsn8410ZGA7mcYc/H1vR+YH02yDhKLRILI1XWZ8vjXobvY+1bdnhbUj8O8gUjaZv7PIztaRzRqu2FeTJb9R3fFhXpt2Uv9ZY+5Hq+LoOpEj8LaXCtVHlss8EVxU7dXg96NxrMenUeB5WPDrJdQu+lEkcvmNNysCLljmLda9MlGTBlsdpugMsM6b+k6LIF64hovup4ewQSoHq3RxciHN3rjn/K8e7oY3tclD+rISUZOTeLr+fjS3LhAW2R5u+0FjuzIE/Gcq/szuQC5N2CAegVt8H6q7DRjkklVI0L6FXCoAd0t6CHwZ+PlftphAqh4FjYrtTOaUirPpsKWMLfHSWANXneVZ8uhqDiMTNLMYnOewZrTyyLqIh/d7xbEcv6uQuCdbSoWmupZfkXAKvoecMA3+3y4dVJmf/olqlz4KSE7UMKettG/RogtSIZ6YDhfuWiI6P29NZDjzhKHLmmPxl4upaiEVt6XoxDeh2fqKpe3ggURIcG7xv7CbzCmhYz4EZ4a4rd6ieUvjrpGLshke0O3PZBHYXA84fnWiUb5tQCGAX0pE0sJmGqnufHeMzBOi7JDBp8XLZAjEFcIjjn+3Tb9whZh+gw5RVUH768fp2gH+STJKNGfz9ClXyKJkEFb2ZmYboKZ7WptnFMM6TmcC2O4RYT4Yo="
+            secure: "c8FJj8AhR+Gf107JJjq98e9HzIr1PObAWXrwTtxoiFO9eEKVblTlbtTIRNbSc6IGR9mHAbBrYHkwtmxS3KYn1VG2zAK2Kz0dwinDhf46hpcPSbNpzm7k03VNu5NXRf0M8zVRJpntF1C6jX/MWeNggQHRf4dVp8m04rOiJzYfGjz6ZtaYuZkNKLtBgjPulkjqjgBB6E3QQLIuOdn7LxkLCUKomi/PfKJeHOo0nptpL4bCUIgUsHcj5CXzwTMvzdr6CbFJap+6EDn9sfcTwIPvShJA4vQ66wB+AvZluaSK71f7YzPYyp/EQzPTsP9CvdqkY5oVOwZ/8s4WH9g+PWs+t1E8v4uTfomzJLuGWppox7cfMANL9bZvqClFx7wkrvYuSZgWP4SP1c/mABviHfHRQcu83N+3F2mtHN+cGAABCxpC+5ihiDhy1HfpNwZXi0RE9unkBUtrPEICrM9RZOOxxubhItPcoOmzFJgjexySr3XFXGYNEU2TEbcFQlvQH3B9NxVdhGeQMgY7ulcE4aD5BpIyXu8TDzuE1948IugtWtRw4CvODbXYaf+7vIdvkuCY3gTCPpNtudKHpI/6fBHp/yCAvIX29jhQ7QQ+ELD2CPIdST5VJwYfaKzoAXhEcF2/2szJ2BuO7AJs9iIyX+kkQohUsLGL5YfdqYbwaZJM6zs="
           skip_cleanup: true
           on:
             tags: true
@@ -103,7 +103,7 @@ jobs:
         - provider: puppetforge
           user: simp
           password:
-            secure: "bweemJAHZQN8lEEDRqR5JPyyd4+5rgzqWvKfUHsynEtzuwlE2xesQ7MUpqS9O+qOQaltFyjLzjqVvaDhAivxL8hzJPTChBqT26fCCSw5eE36bpZPlXvru8BaThjjEDvgGqZAjSDKOuS8rLwgwRMD6ZiBVHZ7XEQADAEtWtBsV9LsoUJYU6noTTxkGG4MHya5I6erW9GUbyJ90UIvtMSyjQ5pLCirCOgsNUD/RF0wNl8jukAuQbQRRT+LGBNENS3PnvLCk52AeizUpR15bMcrgPv0338WnRfGufz+itRlx4ZU0899COFpuPSBmuLP4WQp1mTRVGa6cMFWzA19yhjzhOX68Pyv/hBgFzlsdsqjLK7XvE9Ux2KravAnCe833K5b6i6kcok5+KDrdjQxvyh0TGBIA+75sLx8VViKTjXqxf2OEL5W1VEgmhxQPCkFh38oBvE1rkcFLexoFVyAU+Jblu6yPrw3fuUUMLGalEkYjyHLqUYU7x+Kd6NotDrQ7OxfVWbfrBwpDC9xn/wVKASs3kkcHzYfc6y1xzpJ5Xlod2nTa+FXo7q2yECUgnjGVu680t/wCDydOY4GtsaDRRbgi5qrIm5I7Ie42sA2fQOmkix/XFIcm/EUsdTx71OllfdWOVteoa+4JiWSVgskm0PG9JEHiVwtScxr26jzVO6UaII="
+            secure: "dOj7Bz6UK+4VcQvxlBKhHkF1NXwBbpIE3+BbunSlf+yBJNw5DaBVgF8kND/X3oYvbh6hiNeYPVhUYUsIg5WMvHWXogl6TDYtYYzco20nsRWZ3znXCUGsgKW07K1PmZZdtXudzphkKtbtH/zfGRtxOd4uvoENlwacMClNjvZOhMbo99bXER/Urzd20KtWXqxkAKwhu0gjCtbgeMCFcT5TJ+Pb17zR46E9GoCI26DmSkzl9xcN8t0LQ3A8oEv6qadZTNP2ZevS4fUeCK3Ceu7UDdLLe4mPAm3fhHt3C3mJIT4JCbzz2FduzSUGDp/Ts+QRIf5crjDuw7XQD6ewqnMYPZEowVcZ4eYBL/qu/OTb/tJJHFy8nHUB50vS7woxp7Kp/83yMAUiZ1P98YSCsPRn+7NkE1KKKTO0SAQgdK6DqtvL6gjNp/n/vEUFDfo88xY6b6i0i9pXQqCblxjdgCkPHxfzAzBp+ySKeDu6kmbLgqoegfK7fX61mw+jbx5txR9qNdWoRfYY4BY30VeJMoooHDNf+a369Htzc7h6k88F62C3A2vfhpKNK5svDEET+FzEGtJRYo9DNWo9ojIMC8dog7U8j56CLJb4FAsGZhQvc/EuC5dTuoiZ12p3owXVqZwz3trYKsetNuivfVD6kvN0noexFDjl8ceOcTGEgcZ7YBs="
           on:
             tags: true
             condition: '($SKIP_FORGE_PUBLISH != true)'
