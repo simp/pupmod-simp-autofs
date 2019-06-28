@@ -26,6 +26,3 @@ simp_options::ldap::sync_pw: 'sync_pw'
 simp_options::ldap::sync_hash: '{SSHA}synchash'
 simp_options::dns::servers :
   - 1.2.3.4
-
-sssd::domains :
-  - 'LOCAL'
