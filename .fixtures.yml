@@ -1,9 +1,15 @@
 ---
 fixtures:
   repositories:
-    concat: "https://github.com/simp/puppetlabs-concat"
-    pki: "https://github.com/simp/pupmod-simp-pki"
-    simplib: "https://github.com/simp/pupmod-simp-simplib"
-    stdlib: "https://github.com/simp/puppetlabs-stdlib"
+    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
+    concat:
+      # master is beyond 4.1.1, but has breaking changes to
+      # how fragments are ordered (MODULES-6625)
+      repo: https://github.com/simp/puppetlabs-concat
+      ref: 4.1.1
+    pki: https://github.com/simp/pupmod-simp-pki
+    simplib: https://github.com/simp/pupmod-simp-simplib
+    stdlib: https://github.com/simp/puppetlabs-stdlib
+    simp_options: https://github.com/simp/pupmod-simp-simp_options
   symlinks:
     autofs: "#{source_dir}"

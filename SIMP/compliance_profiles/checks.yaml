@@ -1,0 +1,116 @@
+---
+version: 2.0.0
+checks:
+  oval:com.puppet.forge.simp.autofs.ldap_auth.authrequired:
+    settings:
+      parameter: autofs::ldap_auth::authrequired
+      value: true
+    type: puppet-class-parameter
+    controls:
+      nist_800_53:rev4: true
+      nist_800_53:rev4:IA-2: true
+      disa_stig: true
+      RHEL-07-010500: true
+      SRG-OS-000104-GPOS-00051: true
+      cci:CCI-000764: true
+      cci:CCI-000770: true
+    identifiers:
+      nist_800_53:rev4:
+      - IA-2
+      disa_stig:
+      - RHEL-07-010500
+      - SRG-OS-000104-GPOS-00051
+      - CCI-000764
+      - CCI-000770
+  oval:com.puppet.forge.simp.autofs.ldap_auth.authtype:
+    settings:
+      parameter: autofs::ldap_auth::authtype
+      value: LOGIN
+    type: puppet-class-parameter
+    controls:
+      nist_800_53:rev4: true
+      nist_800_53:rev4:IA-2: true
+      disa_stig: true
+      RHEL-07-010500: true
+      SRG-OS-000104-GPOS-00051: true
+      cci:CCI-000764: true
+      cci:CCI-000770: true
+    identifiers:
+      nist_800_53:rev4:
+      - IA-2
+      disa_stig:
+      - RHEL-07-010500
+      - SRG-OS-000104-GPOS-00051
+      - CCI-000764
+      - CCI-000770
+  oval:com.puppet.forge.simp.autofs.ldap_auth.tlsrequired:
+    settings:
+      parameter: autofs::ldap_auth::tlsrequired
+      value: true
+    type: puppet-class-parameter
+    controls:
+      nist_800_53:rev4: true
+      nist_800_53:rev4:SC-8: true
+      nist_800_53:rev4:SC-8:1: true
+      nist_800_53:rev4:SC-8:2: true
+      nist_800_53:rev4:SC-23: true
+      disa_stig: true
+      RHEL-07-040180: true
+      SRG-OS-000250-GPOS-00093: true
+      cci:CCI-001453: true
+    identifiers:
+      nist_800_53:rev4:
+      - SC-8
+      - SC-8:1
+      - SC-8:2
+      - SC-23
+      disa_stig:
+      - RHEL-07-040180
+      - SRG-OS-000250-GPOS-00093
+      - CCI-001453
+  oval:com.puppet.forge.simp.autofs.ldap_auth.usetls:
+    settings:
+      parameter: autofs::ldap_auth::usetls
+      value: true
+    type: puppet-class-parameter
+    controls:
+      nist_800_53:rev4: true
+      nist_800_53:rev4:SC-8: true
+      nist_800_53:rev4:SC-8:1: true
+      nist_800_53:rev4:SC-8:2: true
+      nist_800_53:rev4:SC-23: true
+      disa_stig: true
+      RHEL-07-040180: true
+      SRG-OS-000250-GPOS-00093: true
+      cci:CCI-001453: true
+    identifiers:
+      nist_800_53:rev4:
+      - SC-8
+      - SC-8:1
+      - SC-8:2
+      - SC-23
+      disa_stig:
+      - RHEL-07-040180
+      - SRG-OS-000250-GPOS-00093
+      - CCI-001453
+  oval:com.puppet.forge.simp.autofs.ldap_auth.ldap_auth_conf_file:
+    settings:
+      parameter: autofs::ldap_auth::ldap_auth_conf_file
+      value: "/etc/autofs_ldap_auth.conf"
+    type: puppet-class-parameter
+    controls:
+      nist_800_53:rev4: true
+      nist_800_53:rev4:IA-1: true
+      disa_stig: true
+      RHEL-07-010500: true
+      SRG-OS-000104-GPOS-00051: true
+      cci:CCI-000764: true
+      cci:CCI-000770: true
+    identifiers:
+      nist_800_53:rev4:
+      - IA-1
+      disa_stig:
+      - RHEL-07-010500
+      - SRG-OS-000104-GPOS-00051
+      - CCI-000764
+      - CCI-000770
