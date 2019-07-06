@@ -20,9 +20,12 @@ compliance_markup::enforcement:
 # The following from `simp_options` should not be required
 simp_options::puppet::server: 'puppet.foo.bar'
 simp_options::puppet::ca: 'puppet.foo.bar'
+simp_options::dns::servers :
+  - 1.2.3.4
+
+# To activate the compliance data
+simp_options::ldap: true
 simp_options::ldap::bind_pw: 'bind_pw'
 simp_options::ldap::bind_hash: '{SSHA}bindhash'
 simp_options::ldap::sync_pw: 'sync_pw'
 simp_options::ldap::sync_hash: '{SSHA}synchash'
-simp_options::dns::servers :
-  - 1.2.3.4
