@@ -2,9 +2,7 @@
 fixtures:
   repositories:
     compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
-    concat:
-      repo: https://github.com/simp/puppetlabs-concat
-      ref: 5.3.0
+    concat: https://github.com/simp/puppetlabs-concat
     pki: https://github.com/simp/pupmod-simp-pki
     simplib: https://github.com/simp/pupmod-simp-simplib
     stdlib: https://github.com/simp/puppetlabs-stdlib
