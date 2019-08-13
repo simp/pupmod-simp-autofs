@@ -1,3 +1,6 @@
+* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 6.2.1-0
+- Support puppetlabs/concat 6.x.
+
 * Thu Jun 06 2019 Steven Pritchard <steven.pritchard@onyxpoint.com> - 6.2.0-0
 - Add v2 compliance_markup data
 - Drop Puppet 4 support
