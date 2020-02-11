@@ -160,3 +160,9 @@ pup6-unit:
 # Acceptance tests
 # ==============================================================================
 # This module does not yet have acceptance tests.
+
+pup6-compliance:
+  <<: *pup_6
+  <<: *compliance_base
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[compliance]'

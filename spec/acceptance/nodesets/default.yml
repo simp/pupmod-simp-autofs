@@ -1,0 +1,37 @@
+<%
+  if ENV['BEAKER_HYPERVISOR']
+    hypervisor = ENV['BEAKER_HYPERVISOR']
+  else
+    hypervisor = 'vagrant'
+  end
+-%>
+HOSTS:
+  el6:
+    platform:   el-6-x86_64
+    box:        centos/6
+    hypervisor: <%= hypervisor %>
+    yum_repos:
+      chef-current:
+        baseurl: 'https://packages.chef.io/repos/yum/current/el/6/$basearch'
+        gpgkeys:
+          - https://packages.chef.io/chef.asc
+
+  el7:
+    roles:
+      - client
+      - default
+    platform: el-7-x86_64
+    box: centos/7
+    hypervisor: <%= hypervisor %>
+    yum_repos:
+      chef-current:
+        baseurl: 'https://packages.chef.io/repos/yum/current/el/7/$basearch'
+        gpgkeys:
+          - https://packages.chef.io/chef.asc
+
+CONFIG:
+  log_level: verbose
+  type: aio
+<% if ENV['BEAKER_PUPPET_ENVIRONMENT'] -%>
+  puppet_environment: <%= ENV['BEAKER_PUPPET_ENVIRONMENT'] %>
+<% end -%>
