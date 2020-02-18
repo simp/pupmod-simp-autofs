@@ -1,6 +1,10 @@
 ---
 fixtures:
   repositories:
+    disa_stig-el7-baseline:
+      repo: https://github.com/simp/inspec-profile-disa_stig-el7
+      branch: master
+      target: spec/fixtures/inspec_deps/inspec_profiles/profiles
     compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
     concat: https://github.com/simp/puppetlabs-concat
     pki: https://github.com/simp/pupmod-simp-pki
