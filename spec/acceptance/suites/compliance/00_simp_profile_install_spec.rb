@@ -44,12 +44,6 @@ defaults:
         apply_manifest_on(host, manifest, :catch_failures => true)
       end
 
-      it 'should reboot for audit updates' do
-        host.reboot
-
-        apply_manifest_on(host, manifest, :catch_failures => true)
-      end
-
       it 'should be idempotent' do
         apply_manifest_on(host, manifest, :catch_changes => true)
       end

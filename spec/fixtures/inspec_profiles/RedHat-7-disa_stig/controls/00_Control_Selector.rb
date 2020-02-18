@@ -28,11 +28,14 @@ require_controls 'disa_stig-el7-baseline' do
 
   ## Overrides ##
 
-# # USEFUL DESCRIPTION
-# control 'V-IDENTIFIER' do
-#   # Enhancement, leave this out if you just want to add a different test
-#   overrides << self.to_s
-#
-#   only_if { file('whatever').exist? }
-# end
+  # Since we're managing autofs, we actually want to make sure that it's *running*
+  control 'V-71985' do
+    overrides << self.to_s
+
+    describe systemd_service('autofs.service') do
+      it { should be_running }
+      it { should be_enabled }
+      it { should be_installed }
+    end
+  end
 end
