@@ -1,0 +1,35 @@
+<%
+  $bool2str = {
+    true => 'yes',
+    false => 'no'
+  }
+-%>
+<?xml version="1.0" ?>
+<autofs_ldap_sasl_conf
+  usetls="<%= $bool2str[$autofs::ldap_auth::usetls] %>"
+  tlsrequired="<%= $bool2str[$autofs::ldap_auth::tlsrequired] %>"
+<% if $autofs::ldap_auth::authrequired =~ String { -%>
+  authrequired="<%= $autofs::ldap_auth::authrequired %>"
+<% } else { -%>
+  authrequired="<%= $bool2str[$autofs::ldap_auth::authrequired] %>"
+<% } -%>
+  authtype="<%= $autofs::ldap_auth::authtype %>"
+<% if $autofs::ldap_auth::authtype == 'EXTERNAL' { -%>
+  external_cert="<%= $autofs::ldap_auth::external_cert %>"
+  external_key="<%= $autofs::ldap_auth::external_key %>"
+<% } -%>
+<% if $autofs::ldap_auth::user { -%>
+  user="<%= $autofs::ldap_auth::user %>"
+<% } -%>
+<% if $autofs::ldap_auth::encoded_secret { -%>
+  encoded_secret="<%= $autofs::ldap_auth::encoded_secret %>"
+<% } elsif $autofs::ldap_auth::secret { -%>
+  secret="<%= $autofs::ldap_auth::secret %>"
+<% } -%>
+<% if $autofs::ldap_auth::clientprinc { -%>
+  clientprinc="<%= $autofs::ldap_auth::clientprinc %>"
+<% } -%>
+<% if $autofs::ldap_auth::credentialcache { -%>
+  credentialcache="<%= $autofs::ldap_auth::credentialcache %>"
+<% } -%>
+/>

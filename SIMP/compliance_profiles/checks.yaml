@@ -93,9 +93,9 @@ checks:
       - RHEL-07-040180
       - SRG-OS-000250-GPOS-00093
       - CCI-001453
-  oval:com.puppet.forge.simp.autofs.ldap_auth.ldap_auth_conf_file:
+  oval:com.puppet.forge.simp.autofs.auth_conf_file:
     settings:
-      parameter: autofs::ldap_auth::ldap_auth_conf_file
+      parameter: autofs::auth_conf_file
       value: "/etc/autofs_ldap_auth.conf"
     type: puppet-class-parameter
     controls:

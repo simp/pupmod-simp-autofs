@@ -1,0 +1,2 @@
+---
+autofs::ldap_auth::authtype: EXTERNAL

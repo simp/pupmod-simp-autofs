@@ -1,6 +1,6 @@
 {
   "name": "simp-autofs",
-  "version": "6.2.1",
+  "version": "7.0.0",
   "author": "SIMP Team",
   "summary": "manages autofs",
   "license": "Apache-2.0",
@@ -13,38 +13,42 @@
   ],
   "dependencies": [
     {
-      "name": "puppetlabs/concat",
-      "version_requirement": ">= 2.2.0 < 7.0.0"
-    },
-    {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.13.1 < 7.0.0"
     },
     {
       "name": "simp/simplib",
-      "version_requirement": ">= 3.1.0 < 4.0.0"
+      "version_requirement": ">= 3.1.0 < 5.0.0"
     }
   ],
+  "simp": {
+    "optional_dependencies": [
+      {
+        "name": "puppetlabs/concat",
+        "version_requirement": ">= 2.2.0 < 7.0.0"
+      }
+    ]
+  },
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "6",
-        "7"
+        "7",
+        "8"
       ]
     }
   ],

@@ -1,15 +1,12 @@
 # The testing matrix considers ruby/puppet versions supported by SIMP and PE:
 #
-# https://puppet.com/docs/pe/2019.0/component_versions_in_recent_pe_releases.html
+# https://puppet.com/docs/pe/latest/component_versions_in_recent_pe_releases.html
 # https://puppet.com/misc/puppet-enterprise-lifecycle
-# https://puppet.com/docs/pe/2018.1/overview/getting_support_for_pe.html
 # ------------------------------------------------------------------------------
 # Release       Puppet   Ruby   EOL
-# SIMP 6.3      5.5.16   2.4.5  TBD***
-# PE 2018.1     5.5.16   2.4.5  2020-05 (LTS)***
-# PE 2019.0     6.0      2.5.1  2019-08-31^^^
-#
-# *** = Modules created for SIMP 6.3+ are not required to support Puppet < 5.5
+# SIMP 6.4      5.5.16   2.4.7  TBD
+# PE 2018.1     5.5.16   2.4.5  2020-11 (LTS)
+# PE 2019.x     6.0      2.5.7  2019-08
 ---
 stages:
   - 'sanity'
@@ -76,7 +73,7 @@ variables:
     BEAKER_PUPPET_COLLECTION: 'puppet5'
     MATRIX_RUBY_VERSION: '2.4'
 
-.pup_6: &pup_6
+.pup_6_latest: &pup_6_latest
   image: 'ruby:2.5'
   variables:
     PUPPET_VERSION: '~> 6.0'
@@ -139,7 +136,7 @@ pup5-lint:
   <<: *lint_tests
 
 pup6-lint:
-  <<: *pup_6
+  <<: *pup_6_latest
   <<: *lint_tests
 
 # Unit Tests
@@ -154,14 +151,56 @@ pup5.5.16-unit:
   <<: *unit_tests
 
 pup6-unit:
-  <<: *pup_6
+  <<: *pup_6_latest
   <<: *unit_tests
 
 # Acceptance tests
 # ==============================================================================
+pup5.5.16:
+  <<: *pup_5_5_16
+  <<: *acceptance_base
+  script:
+    - 'bundle exec rake beaker:suites[default,default]'
 
-pup6-compliance:
-  <<: *pup_6
+pup5.5.16-fips:
+  <<: *pup_5_5_16
+  <<: *acceptance_base
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[default,default]'
+
+pup5.5.16-oel:
+  <<: *pup_5_5_16
+  <<: *acceptance_base
+  script:
+    - 'bundle exec rake beaker:suites[default,oel]'
+
+pup5.5.16-oel-fips:
+  <<: *pup_5_5_16
+  <<: *acceptance_base
+  <<: *only_with_SIMP_FULL_MATRIX
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[default,oel]'
+
+pup6:
+  <<: *pup_6_latest
+  <<: *acceptance_base
+  script:
+    - 'bundle exec rake beaker:suites[default,default]'
+
+pup6-fips:
+  <<: *pup_6_latest
+  <<: *acceptance_base
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[default,default]'
+
+pup5.5.16-fips-compliance:
+  <<: *pup_5_5_16
   <<: *compliance_base
   script:
-    - 'BEAKER_fips=yes bundle exec rake beaker:suites[compliance]'
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[compliance,default]'
+
+pup6-fips-compliance:
+  <<: *pup_6_latest
+  <<: *compliance_base
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[compliance,default]'

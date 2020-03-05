@@ -1,4 +1,74 @@
-* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 6.2.1-0
+* Tue Mar 10 2020 Liz Nemsick <lnemsick.simp@gmail.com> - 7.0.0-0
+- Added support for EL8
+- Dropped support for EL6
+- Refactored the module.  Notable feature/API changes:
+  - Updated autofs service configuration to use /etc/autofs.conf in
+    addition to /etc/sysconfig/autofs.
+  - Updated autofs.master to load content from /etc/auto.master.simp.d/
+    and /etc/auto.master.d/ in lieu of specifying map entries directly.
+    - auto.master entries are now written to files in /etc/auto.master.simp.d,
+      a directory fully managed by this module.
+    - /etc/auto.master.d is left unmanaged by Puppet.
+  - Added a autofs::map defined type that allows the user to specify all
+    the parameters for a 'file' map in once place.  This resource will
+    generate the appropriate resources to create both the auto.master entry
+    file and the map file.
+  - Added autofs::masterfile defined type to replace deprecated
+    autofs::master::map
+    - autofs::masterfile creates a auto.master entry file in
+      $autofs::master_conf_dir
+    - Unlike autofs::map::master, autofs::masterfile does not have a $content
+      parameter, because a user can simply use a file resource to specify
+      a custom auto.master entry file.
+  - Added autofs::mapfile defined type to replace deprecated
+    autofs::master::entry
+    - autofs::mapfile creates a mapfile for a direct mapping or one or
+      more indirect mappings
+    - Unlike autofs::master::entry, it does not have duplicate resource naming
+      problems (wildcard or otherwise).
+  - autofs class changes
+    - Added the following new autofs service configuration parameters:
+      - $master_wait
+      - $mount_verbose
+      - $mount_nfs_default_protocol
+      - $force_standard_program_map_env
+      - $use_hostname_for_mounts
+      - $disable_not_found_message
+      - $sss_master_map_wait
+      - $use_mount_request_log_id
+      - $auth_conf_file
+      - $custom_autofs_conf_options
+    - Added $master_conf_dir and $master_include_dirs parameters to allow
+      users to specify directories containing auto.master entry files.
+    - Added $maps_dir to specify the location of SIMP-managed maps and
+      changed the directory name from /etc/autofs to /etc/autofs.maps.simp.d
+      for clarity.
+    - Added $maps to allow users to specifie 'file' type maps in Hieradata.
+      - Each map specifies the contents of an autofs master entry file and
+        its mapping file.
+    - Renamed $options to $automount_options for clarity.
+    - Renamed $use_misc_device to $automount_use_misc_device for clarity.
+    - Removed $autofs::master_map_name
+      - This parameter is not exposed in /etc/autofs.conf and does not look
+        like it is intended to be changed.
+    - Changed permissions of /etc/auto.master and /etc/sysconfig/autofs
+      to match those of the delivered RPM.
+  - autofs::ldap_auth class changes
+    - autofs::ldap_auth is now a private class to ensure the name of the
+      configuration file created by this class matches the 'auth_conf_file'
+      setting in /etc/autofs.conf.
+    - Added $encoded_secret optional parameter.  This parameter takes
+      precedence when both $secret and $encoded_secret parameters are
+      specified
+  - autofs::map::master has been deprecated by autofs::map or
+    autofs::masterfile.  Its behavior has changed from writing a section
+    of /etc/auto.master to writing an autofs master entry file in
+    $autofs::master_conf_dir.
+  - autofs::map::entry has been deprecated by autofs::map or autofs::mapfile.
+    Its behavior has changed from writing a file in /etc/autofs to writing
+    a file in $autofs::maps_dir.
+
+* Fri Aug 02 2019 Robert Vincent <pillarsdotnet@gmail.com> - 7.0.0-0
 - Support puppetlabs/concat 6.x.
 
 * Thu Jun 06 2019 Steven Pritchard <steven.pritchard@onyxpoint.com> - 6.2.0-0

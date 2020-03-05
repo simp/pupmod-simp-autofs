@@ -18,6 +18,7 @@ describe 'compliance_markup', type: :class do
   # This needs to be well defined since we can also manipulate defined type
   # defaults
   expected_classes = [
+    'autofs',
     'autofs::ldap_auth'
   ]
 
@@ -38,10 +39,7 @@ describe 'compliance_markup', type: :class do
             })
           }
 
-          let(:pre_condition) {%(
-            #{expected_classes.map{|c| %{include #{c}}}.join("\n")}
-          )}
-
+          let(:pre_condition) { "class { 'autofs': ldap => true }" }
           let(:hieradata){ 'compliance-engine' }
 
           it { is_expected.to compile }

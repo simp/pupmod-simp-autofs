@@ -1,0 +1,26 @@
+<%- | Stdlib::Absolutepath           $mount_point,
+      String                         $map,
+      Optional[Autofs::Maptype]      $map_type    = undef,
+      Optional[Enum['sun','hesiod']] $map_format  = undef,
+      Optional[String]               $options     = undef
+    |
+
+  if $map_type {
+    if $map_format {
+      $_map_spec = "${map_type},${map_format}:"
+    } else {
+      $_map_spec = "${map_type}:"
+    }
+  } else {
+   $_map_spec = ''
+  }
+
+  if $options {
+    $_entry = "${mount_point}  ${_map_spec}${map}  ${options}"
+  } else {
+    $_entry = "${mount_point}  ${_map_spec}${map}"
+  }
+-%>
+# This file is managed by Puppet (simp-autofs module).  Changes will be
+# overwritten at the next puppet run.
+<%= $_entry %>

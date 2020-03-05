@@ -12,6 +12,7 @@ describe 'autofs STIG enforcement of simp profile' do
 
   let(:hieradata) { <<-EOF
 ---
+simp_options::ldap: true
 simp_options::pki: true
 simp_options::pki::source: '/etc/pki/simp-testing/pki'
 

@@ -1,6 +1,5 @@
-# **NOTE: THIS IS A [PRIVATE](https://github.com/puppetlabs/puppetlabs-stdlib#assert_private) CLASS**
-#
-# This class provides for the installation of autofs
+# @summary Manages installation of autofs
+# @api private
 #
 class autofs::install {
   assert_private()
@@ -12,13 +11,5 @@ class autofs::install {
 
   package { 'autofs':
     ensure => $::autofs::autofs_package_ensure
-  }
-
-  file { '/etc/autofs':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0640',
-    purge  => true
   }
 }
