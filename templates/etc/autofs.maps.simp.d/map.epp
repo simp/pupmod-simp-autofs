@@ -1,0 +1,10 @@
+<%- | Variant[Autofs::Directmapping, Array[Autofs::Indirectmapping,1]] $mappings | -%>
+# This file is managed by Puppet (simp-autofs module).  Changes will be
+# overwritten at the next puppet run.
+<% if $mappings =~ Array {
+      $mappings.each |Autofs::Indirectmapping $_map | { -%>
+<%= "${_map['key']}  ${_map['options']}  ${_map['location']}" %>
+<%   }
+   } else { -%>
+<%= "${mappings['key']}  ${mappings['options']}  ${mappings['location']}" %>
+<% } -%>

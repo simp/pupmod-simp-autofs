@@ -1,0 +1,6 @@
+# This file is managed by Puppet (simp-autofs module). Changes will be
+# overwritten at the next Puppet run.
+USE_MISC_DEVICE="<%= $autofs::automount_use_misc_device ? { false => 'no', default => 'yes' } %>"
+<% if $autofs::automount_options { -%>
+OPTIONS="<%= $autofs::automount_options %>"
+<% } -%>

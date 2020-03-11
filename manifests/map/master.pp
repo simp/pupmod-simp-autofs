@@ -1,20 +1,18 @@
-# Add an entry to the ``/etc/auto.master`` map
+# @summary Add a `$name.autofs` master entry file to `$autofs::master_conf_dir`
 #
-# If you're using the ``autofs::map::entry`` define, remember that the
-# ``$target`` variable translates to '/etc/autofs/$target.map' which is what
-# you should enter for ``$map`` below.
+# THIS IS DEPRECATED.  Use `autofs::masterfile` or `autofs::map` instead.
 #
 # @see auto.master(5)
 #
 # @param mount_point
 #   See auto.master(5) -> FORMAT -> mount-point
 #
-#   * Required unless ``$content`` is set
+#   * Required unless `$content` is set
 #
 # @param map_name
 #   See auto.master(5) -> FORMAT -> map
 #
-#   * Required unless ``$content`` is set
+#   * Required unless `$content` is set
 #   * $map_type[file|program]      => Absolute Path
 #   * $map_type[yp|nisplus|hesiod] => String
 #   * $map_type[ldap|ldaps]        => LDAP DN
@@ -31,7 +29,7 @@
 # @param content
 #   Ignore all other parameters and use this content without validation
 #
-# @author Trevor Vaughan <tvaughan@onyxpoint.com>
+# @author https://github.com/simp/pupmod-simp-autofs/graphs/contributors
 #
 define autofs::map::master (
   Optional[Stdlib::Absolutepath] $mount_point = undef,
@@ -42,8 +40,20 @@ define autofs::map::master (
   Optional[String]               $content     = undef
 ) {
 
+  deprecation('autofs::map::master',
+    'autofs::map::master is deprecated. Use autofs::masterfile or autofs::map instead')
+
   if $content {
-    $_content = $content
+    include 'autofs'
+    $_safe_name = regsubst($name, '(/|\s)', '__', 'G')
+
+    file { "${autofs::master_conf_dir}/${_safe_name}.autofs":
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => $content,
+      notify  => Exec['autofs_reload']
+    }
   }
   else {
     if !($mount_point and $map_name) {
@@ -56,28 +66,13 @@ define autofs::map::master (
         fail('"$map_name" must be a Stdlib::Absolutepath when "$map_type" is "file" or "program"')
       }
     }
-    elsif $map_type {
-      if $map_name !~ String {
-        fail('"$map_name" must be a String when "$map_type" is not "file" or "program"')
-      }
+
+    autofs::masterfile { $name:
+      mount_point => $mount_point,
+      map         => $map_name,
+      map_type    => $map_type,
+      map_format  => $map_format,
+      options     => $options
     }
-
-    $_content = template("${module_name}/etc/auto.master.erb")
-  }
-
-  ensure_resource('concat','/etc/auto.master',
-    {
-      owner          => 'root',
-      group          => 'root',
-      mode           => '0640',
-      ensure_newline => true,
-      warn           => true,
-      notify         => Class['autofs::service']
-    }
-  )
-
-  concat::fragment { "autofs_master_${name}":
-    target  => '/etc/auto.master',
-    content => $_content
   }
 }

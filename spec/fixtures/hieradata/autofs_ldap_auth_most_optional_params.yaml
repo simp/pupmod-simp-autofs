@@ -1,0 +1,5 @@
+---
+autofs::ldap_auth::user: "LDAPUser"
+autofs::ldap_auth::secret: "LDAPPass"
+autofs::ldap_auth::clientprinc: "autofsclient/host.example.com@EXAMPLE.COM"
+autofs::ldap_auth::credentialcache: "/path/to/cache"

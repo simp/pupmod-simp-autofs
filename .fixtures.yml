@@ -1,15 +1,30 @@
 ---
 fixtures:
   repositories:
+    augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl
+    augeasproviders_core: https://github.com/simp/augeasproviders_core
+    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
+    concat: https://github.com/simp/puppetlabs-concat
     disa_stig-el7-baseline:
       repo: https://github.com/simp/inspec-profile-disa_stig-el7
       branch: master
       target: spec/fixtures/inspec_deps/inspec_profiles/profiles
-    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
-    concat: https://github.com/simp/puppetlabs-concat
+    #FIXME Revert this when the PR for NFS on EL8 goes through
+    #nfs: https://github.com/simp/pupmod-simp-nfs
+    nfs:
+      repo: https://github.com/lnemsick-simp/pupmod-simp-nfs
+      branch: SIMP-7591
     pki: https://github.com/simp/pupmod-simp-pki
+    selinux_core:
+      repo: https://github.com/simp/pupmod-puppetlabs-selinux_core.git
+      puppet_version: ">= 6.0.0"
     simplib: https://github.com/simp/pupmod-simp-simplib
     stdlib: https://github.com/simp/puppetlabs-stdlib
+    svckill: https://github.com/simp/pupmod-simp-svckill
+    systemd: https://github.com/simp/puppet-systemd
     simp_options: https://github.com/simp/pupmod-simp-simp_options
+    vox_selinux:
+      repo: https://github.com/simp/pupmod-voxpupuli-selinux
+      branch: simp-master
   symlinks:
     autofs: "#{source_dir}"

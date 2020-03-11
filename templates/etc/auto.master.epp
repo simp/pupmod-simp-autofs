@@ -1,0 +1,11 @@
+# This file is managed by Puppet (simp-autofs module). Changes will be
+# overwritten at the next Puppet run.
+
+# This directory is managed by by simp-autofs.
+# - Unmanaged files in this directory will be removed.
+# - No other included directories are managed by simp-autofs.
++dir:<%= $autofs::master_conf_dir %>
+
+<% $autofs::master_include_dirs.each |Stdlib::Absolutepath $_master_dir| { -%>
++dir:<%= $_master_dir %>
+<% } -%>

@@ -6,26 +6,29 @@
   end
 -%>
 HOSTS:
-  el6:
-    platform:   el-6-x86_64
-    box:        centos/6
-    hypervisor: <%= hypervisor %>
-    yum_repos:
-      chef-current:
-        baseurl: 'https://packages.chef.io/repos/yum/current/el/6/$basearch'
-        gpgkeys:
-          - https://packages.chef.io/chef.asc
-
   el7:
     roles:
-      - client
-      - default
-    platform: el-7-x86_64
-    box: centos/7
+      - nfs_client
+    platform:   el-7-x86_64
+    box:        centos/7
     hypervisor: <%= hypervisor %>
     yum_repos:
       chef-current:
         baseurl: 'https://packages.chef.io/repos/yum/current/el/7/$basearch'
+        gpgkeys:
+          - https://packages.chef.io/chef.asc
+
+  el8:
+    roles:
+      - nfs_client
+      - nfs_server
+      - default
+    platform: el-8-x86_64
+    box: centos/8
+    hypervisor: <%= hypervisor %>
+    yum_repos:
+      chef-current:
+        baseurl: 'https://packages.chef.io/repos/yum/current/el/8/$basearch'
         gpgkeys:
           - https://packages.chef.io/chef.asc
 

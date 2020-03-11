@@ -1,0 +1,81 @@
+<%
+  $bool2str = {
+    true => 'yes',
+    false => 'no'
+  }
+-%>
+# This file is managed by Puppet (simp-autofs module). Changes will be
+# overwritten at the next Puppet run.
+[autofs]
+
+timeout = <%= $autofs::timeout %>
+<% if $autofs::master_wait { -%>
+master_wait = <%= $autofs::master_wait %>
+<% }
+   if $autofs::negative_timeout { -%>
+negative_timeout = <%= $autofs::negative_timeout %>
+<% } -%>
+mount_verbose = <%= $bool2str[$autofs::mount_verbose] %>
+<% if $autofs::mount_wait { -%>
+mount_wait = <%= $autofs::mount_wait %>
+<% }
+   if $autofs::umount_wait { -%>
+umount_wait = <%= $autofs::umount_wait %>
+<% } -%>
+browse_mode = <%= $bool2str[$autofs::browse_mode] %>
+mount_nfs_default_protocol = <%= $autofs::mount_nfs_default_protocol %>
+append_options = <%= $bool2str[$autofs::append_options] %>
+logging = <%= $autofs::logging %>
+force_standard_program_map_env = <%= $bool2str[$autofs::force_standard_program_map_env] %>
+<% if $autofs::map_hash_table_size { -%>
+map_hash_table_size = <%= $autofs::map_hash_table_size %>
+<% } -%>
+use_hostname_for_mounts = <%= $bool2str[$autofs::use_hostname_for_mounts] %>
+disable_not_found_message = <%= $bool2str[$autofs::disable_not_found_message] %>
+<% if $autofs::sss_master_map_wait { -%>
+sss_master_map_wait = <%= $autofs::sss_master_map_wait %>
+<% } -%>
+use_mount_request_log_id = <%= $bool2str[$autofs::use_mount_request_log_id] %>
+<% if $autofs::ldap {
+     if $autofs::ldap_uri {
+       $autofs::ldap_uri.each |Simplib::Uri $_uri| { -%>
+ldap_uri = <%= $_uri %>
+<%     }
+     }
+     if $autofs::ldap_timeout { -%>
+ldap_timeout = <%= $autofs::ldap_timeout %>
+<%   }
+     if $autofs::ldap_network_timeout { -%>
+ldap_network_timeout = <%= $autofs::ldap_network_timeout %>
+<%   }
+     if $autofs::search_base {
+       $autofs::search_base.each |String $_search_base| { -%>
+search_base = <%= $_search_base %>
+<%     }
+     }
+     if $autofs::map_object_class { -%>
+map_object_class = <%= $autofs::map_object_class %>
+<%   }
+     if $autofs::entry_object_class { -%>
+entry_object_class = <%= $autofs::entry_object_class %>
+<%   }
+     if $autofs::map_attribute { -%>
+map_attribute = <%= $autofs::map_attribute %>
+<%   }
+     if $autofs::entry_attribute { -%>
+entry_attribute = <%= $autofs::entry_attribute %>
+<%   }
+     if $autofs::value_attribute { -%>
+value_attribute = <%= $autofs::value_attribute %>
+<%   } -%>
+auth_conf_file = <%= $autofs::auth_conf_file %>
+<% }
+
+   unless empty($autofs::custom_autofs_conf_options) {
+     $autofs::custom_autofs_conf_options.each |String $k, String $v| {
+-%>
+<%= $k %> = <%= $v %>
+<%
+     }
+   }
+-%>

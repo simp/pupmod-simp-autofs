@@ -9,13 +9,6 @@ require 'pathname'
 fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
 module_name = File.basename(File.expand_path(File.join(__FILE__,'../..')))
 
-# Add fixture lib dirs to LOAD_PATH. Work-around for PUP-3336
-if Puppet.version < "4.0.0"
-  Dir["#{fixture_path}/modules/*/lib"].entries.each do |lib_dir|
-    $LOAD_PATH << lib_dir
-  end
-end
-
 
 if !ENV.key?( 'TRUSTED_NODE_DATA' )
   warn '== WARNING: TRUSTED_NODE_DATA is unset, using TRUSTED_NODE_DATA=yes'
@@ -139,10 +132,10 @@ RSpec.configure do |c|
     end
 
     # ensure the user running these tests has an accessible environmentpath
+    Puppet[:digest_algorithm] = 'sha256'
     Puppet[:environmentpath] = @spec_global_env_temp
     Puppet[:user] = Etc.getpwuid(Process.uid).name
     Puppet[:group] = Etc.getgrgid(Process.gid).name
-    Puppet[:digest_algorithm] = 'sha256'
 
     # sanitize hieradata
     if defined?(hieradata)
