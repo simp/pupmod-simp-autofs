@@ -159,7 +159,7 @@ describe 'autofs::mapfile' do
       end
 
       context 'with / in title' do
-        let(:title) { 'net/apps' }
+        let(:title) { '/net/apps' }
         let(:params) {{
           :mappings => {
             'key'      => '/net/apps',

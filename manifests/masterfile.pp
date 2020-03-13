@@ -105,7 +105,7 @@ define autofs::masterfile (
     'options'     => $options
   })
 
-  $_safe_name = regsubst($name, '(/|\s)', '__', 'G')
+  $_safe_name = regsubst(regsubst($name, '^/', ''), '(/|\s)', '__', 'G')
   file { "${autofs::master_conf_dir}/${_safe_name}.autofs":
     owner   => 'root',
     group   => 'root',

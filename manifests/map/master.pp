@@ -43,8 +43,9 @@ define autofs::map::master (
   deprecation('autofs::map::master',
     'autofs::map::master is deprecated. Use autofs::masterfile or autofs::map instead')
 
+  include 'autofs'
+
   if $content {
-    include 'autofs'
     $_safe_name = regsubst($name, '(/|\s)', '__', 'G')
 
     file { "${autofs::master_conf_dir}/${_safe_name}.autofs":
@@ -67,9 +68,16 @@ define autofs::map::master (
       }
     }
 
+    if $map_name =~ /^\/etc\/autofs\// {
+      $_map_name = "${autofs::maps_dir}/${basename($map_name)}"
+      warning("Old configuration detected: Map file changed from ${map_name} to ${_map_name}")
+    } else {
+      $_map_name = $map_name
+    }
+
     autofs::masterfile { $name:
       mount_point => $mount_point,
-      map         => $map_name,
+      map         => $_map_name,
       map_type    => $map_type,
       map_format  => $map_format,
       options     => $options

@@ -96,7 +96,7 @@ describe 'autofs::masterfile' do
 
         it { is_expected.to compile.with_all_deps }
         it 'should replace / characters' do
-          file = '/etc/auto.master.simp.d/__some__path__my_stuff.autofs'
+          file = '/etc/auto.master.simp.d/some__path__my_stuff.autofs'
           is_expected.to contain_file(file)
         end
       end
