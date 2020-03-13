@@ -9,7 +9,7 @@ describe 'autofs::map::master' do
       context  'with minimal parameters including mount_point' do
         let(:params) {{
           :mount_point => '/my/stuff',
-          :map_name    => 'bob'
+          :map_name    => '/etc/autofs.maps.simp.d/bob'
         }}
 
         it { is_expected.to compile.with_all_deps }
@@ -19,10 +19,25 @@ describe 'autofs::map::master' do
         } ) }
       end
 
+      context 'with legacy map location' do
+        let(:params) {{
+          :mount_point => '/my/stuff',
+          :map_name    => '/etc/autofs/bob'
+        }}
+
+        let(:converted_map_name) { '/etc/autofs.maps.simp.d/bob' }
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_autofs__masterfile(title).with( {
+          :mount_point => params[:mount_point],
+          :map         => converted_map_name
+        } ) }
+      end
+
       context 'with a map_type specified' do
         let(:params) {{
           :mount_point => '/my/stuff',
-          :map_name    => '/bob',
+          :map_name    => '/etc/bob',
           :map_type    => 'file'
         }}
 

@@ -81,7 +81,7 @@ define autofs::mapfile (
     $_maps_dir = $maps_dir
   }
 
-  $_safe_name = regsubst($name, '(/|\s)', '__', 'G')
+  $_safe_name = regsubst(regsubst($name, '^/', ''), '(/|\s)', '__', 'G')
   $_map_file = "${_maps_dir}/${_safe_name}.map"
   file { $_map_file:
     owner   => 'root',
