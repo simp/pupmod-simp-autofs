@@ -140,7 +140,7 @@ describe 'autofs::map' do
       end
 
       context 'with / in title' do
-        let(:title) { 'net/apps' }
+        let(:title) { '/net/apps' }
         let(:params) {{
           :mount_point => '/-',
           :mappings    => {
