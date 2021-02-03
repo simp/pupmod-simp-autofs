@@ -9,11 +9,7 @@ fixtures:
       repo: https://github.com/simp/inspec-profile-disa_stig-el7
       branch: master
       target: spec/fixtures/inspec_deps/inspec_profiles/profiles
-    #FIXME Revert this when the PR for NFS on EL8 goes through
-    #nfs: https://github.com/simp/pupmod-simp-nfs
-    nfs:
-      repo: https://github.com/lnemsick-simp/pupmod-simp-nfs
-      branch: SIMP-7591
+    nfs: https://github.com/simp/pupmod-simp-nfs
     pki: https://github.com/simp/pupmod-simp-pki
     selinux_core:
       repo: https://github.com/simp/pupmod-puppetlabs-selinux_core.git
