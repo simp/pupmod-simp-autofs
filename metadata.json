@@ -1,6 +1,6 @@
 {
   "name": "simp-autofs",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "author": "SIMP Team",
   "summary": "manages autofs",
   "license": "Apache-2.0",
@@ -14,7 +14,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.1 < 7.0.0"
+      "version_requirement": ">= 6.18.0 < 8.0.0"
     },
     {
       "name": "simp/simplib",
@@ -25,7 +25,7 @@
     "optional_dependencies": [
       {
         "name": "puppetlabs/concat",
-        "version_requirement": ">= 2.2.0 < 7.0.0"
+        "version_requirement": ">= 6.4.0 < 8.0.0"
       }
     ]
   },
@@ -55,7 +55,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.0.0 < 7.0.0"
+      "version_requirement": ">= 6.22.1 < 8.0.0"
     }
   ]
 }
