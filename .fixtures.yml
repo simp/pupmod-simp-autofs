@@ -1,26 +1,24 @@
 ---
 fixtures:
   repositories:
-    augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl
-    augeasproviders_core: https://github.com/simp/augeasproviders_core
-    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup
-    concat: https://github.com/simp/puppetlabs-concat
+    augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl.git
+    augeasproviders_core: https://github.com/simp/augeasproviders_core.git
+    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup.git
+    concat: https://github.com/simp/puppetlabs-concat.git
     disa_stig-el7-baseline:
-      repo: https://github.com/simp/inspec-profile-disa_stig-el7
+      repo: https://github.com/simp/inspec-profile-disa_stig-el7.git
       branch: master
       target: spec/fixtures/inspec_deps/inspec_profiles/profiles
-    nfs: https://github.com/simp/pupmod-simp-nfs
-    pki: https://github.com/simp/pupmod-simp-pki
-    selinux_core:
-      repo: https://github.com/simp/pupmod-puppetlabs-selinux_core.git
-      puppet_version: ">= 6.0.0"
-    simplib: https://github.com/simp/pupmod-simp-simplib
-    stdlib: https://github.com/simp/puppetlabs-stdlib
-    svckill: https://github.com/simp/pupmod-simp-svckill
-    systemd: https://github.com/simp/puppet-systemd
-    simp_options: https://github.com/simp/pupmod-simp-simp_options
+    nfs: https://github.com/simp/pupmod-simp-nfs.git
+    pki: https://github.com/simp/pupmod-simp-pki.git
+    selinux_core: https://github.com/simp/pupmod-puppetlabs-selinux_core.git
+    simplib: https://github.com/simp/pupmod-simp-simplib.git
+    stdlib: https://github.com/simp/puppetlabs-stdlib.git
+    svckill: https://github.com/simp/pupmod-simp-svckill.git
+    systemd: https://github.com/simp/puppet-systemd.git
+    simp_options: https://github.com/simp/pupmod-simp-simp_options.git
     vox_selinux:
-      repo: https://github.com/simp/pupmod-voxpupuli-selinux
+      repo: https://github.com/simp/pupmod-voxpupuli-selinux.git
       branch: simp-master
   symlinks:
     autofs: "#{source_dir}"
