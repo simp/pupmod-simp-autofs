@@ -380,3 +380,9 @@ pup6.pe-fips-compliance:
   <<: *compliance_base
   script:
     - 'BEAKER_fips=yes bundle exec rake beaker:suites[compliance,default]'
+
+pup7.x:
+  <<: *pup_7_x
+  <<: *acceptance_base
+  script:
+    - 'bundle exec rake beaker:suites[default,default]'
