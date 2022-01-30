@@ -368,12 +368,25 @@ pup6.pe-oel:
   script:
     - 'bundle exec rake beaker:suites[default,oel]'
 
+pup6.pe-amzn2:
+  <<: *pup_6_pe
+  <<: *acceptance_base
+  script:
+    - 'bundle exec rake beaker:suites[default,amzn2]'
+
 pup6.pe-oel-fips:
   <<: *pup_6_pe
   <<: *acceptance_base
   <<: *with_SIMP_ACCEPTANCE_MATRIX_LEVEL_3
   script:
     - 'BEAKER_fips=yes bundle exec rake beaker:suites[default,oel]'
+
+pup6.pe-amzn2-fips:
+  <<: *pup_6_pe
+  <<: *acceptance_base
+  <<: *with_SIMP_ACCEPTANCE_MATRIX_LEVEL_3
+  script:
+    - 'BEAKER_fips=yes bundle exec rake beaker:suites[default,amzn2]'
 
 pup6.pe-fips-compliance:
   <<: *pup_6_pe
