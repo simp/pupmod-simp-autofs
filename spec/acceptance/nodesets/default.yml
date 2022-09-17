@@ -12,11 +12,6 @@ HOSTS:
     platform:   el-7-x86_64
     box:        centos/7
     hypervisor: <%= hypervisor %>
-    yum_repos:
-      chef-current:
-        baseurl: 'https://packages.chef.io/repos/yum/current/el/7/$basearch'
-        gpgkeys:
-          - https://packages.chef.io/chef.asc
 
   el8:
     roles:
@@ -24,13 +19,8 @@ HOSTS:
       - nfs_server
       - default
     platform: el-8-x86_64
-    box: generic/centos8
+    box: centos/stream8
     hypervisor: <%= hypervisor %>
-    yum_repos:
-      chef-current:
-        baseurl: 'https://packages.chef.io/repos/yum/current/el/8/$basearch'
-        gpgkeys:
-          - https://packages.chef.io/chef.asc
 
 CONFIG:
   log_level: verbose
