@@ -8,6 +8,15 @@
 HOSTS:
   amzn2:
     roles:
+      - nfs_client
+    platform: el-7-x86_64
+    box: gbailey/amzn2
+    hypervisor: <%= hypervisor %>
+
+  amzn2-svr:
+    roles:
+      - nfs_client
+      - nfs_server
       - default
     platform: el-7-x86_64
     box: gbailey/amzn2
@@ -17,7 +26,6 @@ CONFIG:
   log_level: verbose
   synced_folder : disabled
   type: aio
-  vagrant_memsize: 512
 <% if ENV['BEAKER_PUPPET_COLLECTION'] -%>
   puppet_collection: <%= ENV['BEAKER_PUPPET_COLLECTION'] %>
 <% end -%>
