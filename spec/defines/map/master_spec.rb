@@ -6,74 +6,104 @@ describe 'autofs::map::master' do
       let(:facts) { os_facts }
       let(:title) { 'stuff' }
 
-      context  'with minimal parameters including mount_point' do
-        let(:params) {{
-          :mount_point => '/my/stuff',
-          :map_name    => '/etc/autofs.maps.simp.d/bob'
-        }}
+      context 'with minimal parameters including mount_point' do
+        let(:params) do
+          {
+            mount_point: '/my/stuff',
+            map_name: '/etc/autofs.maps.simp.d/bob',
+          }
+        end
 
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_autofs__masterfile(title).with( {
-          :mount_point => params[:mount_point],
-          :map         => params[:map_name]
-        } ) }
+        it do
+          if Puppet[:strict] == :error
+            is_expected.to compile.and_raise_error(%r{\bautofs::map::master is deprecated\.})
+          else
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_autofs__masterfile(title).with(
+              mount_point: params[:mount_point],
+              map: params[:map_name],
+            )
+          end
+        end
       end
 
       context 'with legacy map location' do
-        let(:params) {{
-          :mount_point => '/my/stuff',
-          :map_name    => '/etc/autofs/bob'
-        }}
+        let(:params) do
+          {
+            mount_point: '/my/stuff',
+            map_name: '/etc/autofs/bob',
+          }
+        end
 
         let(:converted_map_name) { '/etc/autofs.maps.simp.d/bob' }
 
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_autofs__masterfile(title).with( {
-          :mount_point => params[:mount_point],
-          :map         => converted_map_name
-        } ) }
+        it do
+          if Puppet[:strict] == :error
+            is_expected.to compile.and_raise_error(%r{\bautofs::map::master is deprecated\.})
+          else
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_autofs__masterfile(title).with(
+              mount_point: params[:mount_point],
+              map: converted_map_name,
+            )
+          end
+        end
       end
 
       context 'with a map_type specified' do
-        let(:params) {{
-          :mount_point => '/my/stuff',
-          :map_name    => '/etc/bob',
-          :map_type    => 'file'
-        }}
+        let(:params) do
+          {
+            mount_point: '/my/stuff',
+            map_name: '/etc/bob',
+            map_type: 'file',
+          }
+        end
 
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_autofs__masterfile(title).with( {
-          :mount_point => params[:mount_point],
-          :map         => params[:map_name],
-          :map_type    => params[:map_type]
-        } ) }
+        it do
+          if Puppet[:strict] == :error
+            is_expected.to compile.and_raise_error(%r{\bautofs::map::master is deprecated\.})
+          else
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_autofs__masterfile(title).with(
+              mount_point: params[:mount_point],
+              map: params[:map_name],
+              map_type: params[:map_type],
+            )
+          end
+        end
       end
 
       context 'with content specified' do
-        let(:params) {{
-          :content => "/mnt/apps ldap:ou=auto.indirect,dc=example,dc=com\n"
-        }}
+        let(:params) do
+          {
+            content: "/mnt/apps ldap:ou=auto.indirect,dc=example,dc=com\n"
+          }
+        end
 
         let(:auto_master_entry_file) { "/etc/auto.master.simp.d/#{title}.autofs" }
 
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_file(auto_master_entry_file).with_content(
-          params[:content]) }
-
-        it { is_expected.to contain_file(auto_master_entry_file).that_notifies('Exec[autofs_reload]') }
+        it do
+          if Puppet[:strict] == :error
+            is_expected.to compile.and_raise_error(%r{\bautofs::map::master is deprecated\.})
+          else
+            is_expected.to compile.with_all_deps
+            is_expected.to contain_file(auto_master_entry_file).with_content(params[:content])
+            is_expected.to contain_file(auto_master_entry_file).that_notifies('Exec[autofs_reload]')
+          end
+        end
       end
 
       context 'errors' do
         context 'no parameters set' do
-          let(:params) {{ }}
+          let(:params) { {} }
 
-          it { is_expected.to_not compile.with_all_deps }
+          it { is_expected.not_to compile.with_all_deps }
         end
 
         context 'only map_name set' do
-          let(:params) {{ :map_name => 'oops' }}
+          let(:params) { { map_name: 'oops' } }
 
-          it { is_expected.to_not compile.with_all_deps }
+          it { is_expected.not_to compile.with_all_deps }
         end
       end
     end
