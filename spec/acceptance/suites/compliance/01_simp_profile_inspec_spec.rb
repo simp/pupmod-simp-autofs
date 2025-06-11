@@ -17,6 +17,7 @@ describe 'run inspec against the appropriate fixtures' do
               )
 
           if File.exist?(profile_path)
+            # rubocop:disable RSpec/InstanceVariable
             before(:all) do
               @inspec = Simp::BeakerHelpers::Inspec.new(host, profile)
               @inspec_report = { data: nil }
@@ -52,8 +53,9 @@ describe 'run inspec against the appropriate fixtures' do
 
               expect(@inspec_report[:data][:failed]).to eq(0)
             end
+            # rubocop:enable RSpec/InstanceVariable
           else
-            it 'runs inspec' do
+            it 'runs inspec without a matching profile' do
               skip("No matching profile available at #{profile_path}")
             end
           end
