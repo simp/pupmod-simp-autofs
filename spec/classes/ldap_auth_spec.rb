@@ -13,20 +13,20 @@ describe 'autofs' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
-            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with({
-                                                                            owner: 'root',
-            group: 'root',
-            mode: '0600',
-            content: <<~EOM,
-              <?xml version="1.0" ?>
-              <autofs_ldap_sasl_conf
-                usetls="yes"
-                tlsrequired="yes"
-                authrequired="yes"
-                authtype="LOGIN"
-              />
-            EOM
-                                                                          })
+            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with(
+              owner: 'root',
+              group: 'root',
+              mode: '0600',
+              content: <<~EOM,
+                <?xml version="1.0" ?>
+                <autofs_ldap_sasl_conf
+                  usetls="yes"
+                  tlsrequired="yes"
+                  authrequired="yes"
+                  authtype="LOGIN"
+                />
+              EOM
+            )
           }
         end
 
@@ -37,8 +37,7 @@ describe 'autofs' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
-            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(
-            <<~EOM,
+            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(<<~EOM)
               <?xml version="1.0" ?>
               <autofs_ldap_sasl_conf
                 usetls="yes"
@@ -49,7 +48,6 @@ describe 'autofs' do
                 secret="LDAPBindPassword"
               />
             EOM
-          )
           }
         end
 
@@ -59,8 +57,7 @@ describe 'autofs' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
-            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(
-            <<~EOM,
+            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(<<~EOM)
               <?xml version="1.0" ?>
               <autofs_ldap_sasl_conf
                 usetls="yes"
@@ -73,7 +70,6 @@ describe 'autofs' do
                 credentialcache="/path/to/cache"
               />
             EOM
-          )
           }
         end
 
@@ -83,8 +79,7 @@ describe 'autofs' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
-            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(
-            <<~EOM,
+            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(<<~EOM)
               <?xml version="1.0" ?>
               <autofs_ldap_sasl_conf
                 usetls="yes"
@@ -97,7 +92,6 @@ describe 'autofs' do
                 credentialcache="/path/to/cache"
               />
             EOM
-          )
           }
         end
 
@@ -108,8 +102,8 @@ describe 'autofs' do
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
             is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(
-            %r{authrequired="simple"},
-          )
+              %r{authrequired="simple"},
+            )
           }
         end
 
@@ -119,8 +113,7 @@ describe 'autofs' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to create_class('autofs::ldap_auth') }
           it {
-            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(
-            <<~EOM,
+            is_expected.to create_file('/etc/autofs_ldap_auth.conf').with_content(<<~EOM)
               <?xml version="1.0" ?>
               <autofs_ldap_sasl_conf
                 usetls="yes"
@@ -131,7 +124,6 @@ describe 'autofs' do
                 external_key="/etc/pki/simp_apps/autofs/x509/private/foo.example.com.pem"
               />
             EOM
-          )
           }
 
           it { is_expected.to create_class('autofs::config::pki') }
@@ -145,7 +137,7 @@ describe 'autofs' do
           let(:params) do
             {
               ldap: true,
-           pki: 'simp',
+              pki: 'simp',
             }
           end
 
@@ -155,10 +147,10 @@ describe 'autofs' do
 
           # autofs::config::pki class is also trivial, so test it here
           it {
-            is_expected.to create_pki__copy('autofs').with({
-                                                             source: '/etc/pki/simp/x509',
-            pki: 'simp',
-                                                           })
+            is_expected.to create_pki__copy('autofs').with(
+              source: '/etc/pki/simp/x509',
+              pki: 'simp',
+            )
           }
         end
       end

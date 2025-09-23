@@ -4,7 +4,7 @@ test_name 'autofs STIG enforcement of simp profile'
 
 describe 'autofs STIG enforcement of simp profile' do
   let(:manifest) do
-    <<-EOS
+    <<~EOS
       include 'autofs'
     EOS
   end

@@ -12,52 +12,52 @@ describe 'basic autofs' do
     {
       # Set us up for a basic autofs (no LDAP)
       'simp_options::ldap' => false,
-   'simp_options::pki'  => false,
-   # set up automounts
-   'autofs::maps'       => {
-     # indirect mount with multiple explicit keys
-     'apps' => {
-       'mount_point' => '/net/apps',
-       'mappings'    => [
-         {
-           'key'      => 'v1',
-           'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps1",
-         },
-         {
-           'key'      => 'v2',
-           'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps2",
-         },
-         {
-           'key'      => 'latest',
-           'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps3",
-         },
-       ],
-     },
-     # direct mount
-     'data' => {
-       'mount_point' => '/-',
-       'mappings'    => {
-         'key'      => '/net/data',
-         'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-         'location' => "#{server_fqdn}:/exports/data",
-       },
-     },
-     # indirect mount with wildcard key and key substitution
-     # Don't use /home or vagrant's home directory will be
-     # masked and you won't be able to login!
-     'home.new' => {
-       'mount_point'    => '/home.new',
-       'master_options' => 'strictexpire --strict',
-       'mappings'       => [ {
-         'key'      => '*',
-         'options'  => '-fstype=nfs,soft,nfsvers=4,rw',
-         'location' => "#{server_fqdn}:/exports/home/&",
-       } ],
-     },
-   },
+      'simp_options::pki'  => false,
+      # set up automounts
+      'autofs::maps'       => {
+        # indirect mount with multiple explicit keys
+        'apps' => {
+          'mount_point' => '/net/apps',
+          'mappings'    => [
+            {
+              'key'      => 'v1',
+              'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
+              'location' => "#{server_fqdn}:/exports/apps1",
+            },
+            {
+              'key'      => 'v2',
+              'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
+              'location' => "#{server_fqdn}:/exports/apps2",
+            },
+            {
+              'key'      => 'latest',
+              'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
+              'location' => "#{server_fqdn}:/exports/apps3",
+            },
+          ],
+        },
+        # direct mount
+        'data' => {
+          'mount_point' => '/-',
+          'mappings'    => {
+            'key'      => '/net/data',
+            'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
+            'location' => "#{server_fqdn}:/exports/data",
+          },
+        },
+        # indirect mount with wildcard key and key substitution
+        # Don't use /home or vagrant's home directory will be
+        # masked and you won't be able to login!
+        'home.new' => {
+          'mount_point'    => '/home.new',
+          'master_options' => 'strictexpire --strict',
+          'mappings'       => [ {
+            'key'      => '*',
+            'options'  => '-fstype=nfs,soft,nfsvers=4,rw',
+            'location' => "#{server_fqdn}:/exports/home/&",
+          } ],
+        },
+      },
     }
   end
 

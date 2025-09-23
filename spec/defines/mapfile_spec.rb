@@ -23,16 +23,16 @@ describe 'autofs::mapfile' do
           it { is_expected.to contain_class('autofs') }
           it { is_expected.to contain_autofs__mapfile(title) }
           it {
-            is_expected.to contain_file(map_file).with({
-                                                         owner: 'root',
-             group: 'root',
-             mode: '0640',
-             content: <<~EOM,
-               # This file is managed by Puppet (simp-autofs module).  Changes will be
-               # overwritten at the next puppet run.
-               /net/apps    1.2.3.4:/exports/apps
-             EOM
-                                                       })
+            is_expected.to contain_file(map_file).with(
+              owner: 'root',
+              group: 'root',
+              mode: '0640',
+              content: <<~EOM,
+                # This file is managed by Puppet (simp-autofs module).  Changes will be
+                # overwritten at the next puppet run.
+                /net/apps    1.2.3.4:/exports/apps
+              EOM
+            )
           }
 
           it { is_expected.to contain_file(map_file).that_notifies('Exec[autofs_reload]') }
@@ -52,13 +52,11 @@ describe 'autofs::mapfile' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_autofs__mapfile(title) }
           it {
-            is_expected.to contain_file(map_file).with_content(
-             <<~EOM,
-               # This file is managed by Puppet (simp-autofs module).  Changes will be
-               # overwritten at the next puppet run.
-               /net/apps  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/apps
-             EOM
-           )
+            is_expected.to contain_file(map_file).with_content(<<~EOM)
+              # This file is managed by Puppet (simp-autofs module).  Changes will be
+              # overwritten at the next puppet run.
+              /net/apps  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/apps
+            EOM
           }
 
           it { is_expected.to contain_file(map_file).that_notifies('Exec[autofs_reload]') }
@@ -72,23 +70,23 @@ describe 'autofs::mapfile' do
         context 'without mapping options' do
           let(:params) do
             {
-              mappings: [ {
-                'key'      => '*',
-                'location' => '1.2.3.4:/exports/home/&',
-              } ],
+              mappings: [
+                {
+                  'key'      => '*',
+                  'location' => '1.2.3.4:/exports/home/&',
+                },
+              ],
             }
           end
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_autofs__mapfile(title) }
           it {
-            is_expected.to contain_file(map_file).with_content(
-             <<~EOM,
-               # This file is managed by Puppet (simp-autofs module).  Changes will be
-               # overwritten at the next puppet run.
-               *    1.2.3.4:/exports/home/&
-             EOM
-           )
+            is_expected.to contain_file(map_file).with_content(<<~EOM)
+              # This file is managed by Puppet (simp-autofs module).  Changes will be
+              # overwritten at the next puppet run.
+              *    1.2.3.4:/exports/home/&
+            EOM
           }
 
           it { is_expected.not_to contain_file(map_file).that_notifies('Exec[autofs_reload]') }
@@ -97,24 +95,24 @@ describe 'autofs::mapfile' do
         context 'with mapping options' do
           let(:params) do
             {
-              mappings: [ {
-                'key'      => '*',
-                'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                'location' => '1.2.3.4:/exports/home/&',
-              } ],
+              mappings: [
+                {
+                  'key'      => '*',
+                  'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
+                  'location' => '1.2.3.4:/exports/home/&',
+                },
+              ],
             }
           end
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_autofs__mapfile(title) }
           it {
-            is_expected.to contain_file(map_file).with_content(
-             <<~EOM,
-               # This file is managed by Puppet (simp-autofs module).  Changes will be
-               # overwritten at the next puppet run.
-               *  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/home/&
-             EOM
-           )
+            is_expected.to contain_file(map_file).with_content(<<~EOM)
+              # This file is managed by Puppet (simp-autofs module).  Changes will be
+              # overwritten at the next puppet run.
+              *  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/home/&
+            EOM
           }
 
           it { is_expected.not_to contain_file(map_file).that_notifies('Exec[autofs_reload]') }
@@ -147,15 +145,13 @@ describe 'autofs::mapfile' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_autofs__mapfile(title) }
         it {
-          is_expected.to contain_file(map_file).with_content(
-           <<~EOM,
-             # This file is managed by Puppet (simp-autofs module).  Changes will be
-             # overwritten at the next puppet run.
-             v1    1.2.3.4:/exports/apps1
-             v2  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.5:/exports/apps2
-             latest    1.2.3.6:/exports/apps3
-           EOM
-         )
+          is_expected.to contain_file(map_file).with_content(<<~EOM)
+            # This file is managed by Puppet (simp-autofs module).  Changes will be
+            # overwritten at the next puppet run.
+            v1    1.2.3.4:/exports/apps1
+            v2  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.5:/exports/apps2
+            latest    1.2.3.6:/exports/apps3
+          EOM
         }
 
         it { is_expected.not_to contain_file(map_file).that_notifies('Exec[autofs_reload]') }
@@ -169,7 +165,7 @@ describe 'autofs::mapfile' do
               'key'      => '/net/apps',
               'location' => '1.2.3.4:/exports/apps',
             },
-          maps_dir: '/etc/maps.d',
+            maps_dir: '/etc/maps.d',
           }
         end
 

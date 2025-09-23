@@ -19,10 +19,10 @@ describe 'NFS setup' do
     let(:client_hieradata) do
       {
         # Set us up for a barebone NFS (no security features)
-        'simp_options::firewall' => false,
-     'simp_options::kerberos'    => false,
-     'simp_options::stunnel'     => false,
-     'simp_options::tcpwrappers' => false,
+        'simp_options::firewall'    => false,
+        'simp_options::kerberos'    => false,
+        'simp_options::stunnel'     => false,
+        'simp_options::tcpwrappers' => false,
       }
     end
 
@@ -44,11 +44,11 @@ describe 'NFS setup' do
     let(:server_hieradata) do
       {
         # Set us up for a barebone NFS (no security features)
-        'simp_options::firewall' => false,
-     'simp_options::kerberos'    => false,
-     'simp_options::stunnel'     => false,
-     'simp_options::tcpwrappers' => false,
-     'nfs::is_server'            => true,
+        'simp_options::firewall'    => false,
+        'simp_options::kerberos'    => false,
+        'simp_options::stunnel'     => false,
+        'simp_options::tcpwrappers' => false,
+        'nfs::is_server'            => true,
       }
     end
 
@@ -59,25 +59,25 @@ describe 'NFS setup' do
           export_dir: "#{export_root_path}/data",
           exported_files: [ "#{export_root_path}/data/test_file" ],
         },
-      apps1: {
-        export_dir: "#{export_root_path}/apps1",
-        exported_files: [ "#{export_root_path}/apps1/test_file" ],
-      },
-      apps2: {
-        export_dir: "#{export_root_path}/apps2",
-        exported_files: [ "#{export_root_path}/apps2/test_file" ],
-      },
-      apps3: {
-        export_dir: "#{export_root_path}/apps3",
-        exported_files: [ "#{export_root_path}/apps3/test_file" ],
-      },
-      home: {
-        export_dir: "#{export_root_path}/home",
-        exported_files: [
-          "#{export_root_path}/home/user1/test_file",
-          "#{export_root_path}/home/user2/test_file",
-        ],
-      },
+        apps1: {
+          export_dir: "#{export_root_path}/apps1",
+          exported_files: [ "#{export_root_path}/apps1/test_file" ],
+        },
+        apps2: {
+          export_dir: "#{export_root_path}/apps2",
+          exported_files: [ "#{export_root_path}/apps2/test_file" ],
+        },
+        apps3: {
+          export_dir: "#{export_root_path}/apps3",
+          exported_files: [ "#{export_root_path}/apps3/test_file" ],
+        },
+        home: {
+          export_dir: "#{export_root_path}/home",
+          exported_files: [
+            "#{export_root_path}/home/user1/test_file",
+            "#{export_root_path}/home/user2/test_file",
+          ],
+        },
       }
     end
 
@@ -91,7 +91,7 @@ describe 'NFS setup' do
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
-          seltype => 'default_t'
+          seltype => 'default_t',
         }
 
         $export_dirs = [
@@ -103,26 +103,26 @@ describe 'NFS setup' do
             ensure => 'directory',
             owner  => 'root',
             group  => 'root',
-            mode   => '0644'
+            mode   => '0644',
           }
 
           nfs::server::export { $_export_dir:
             clients     => ['*'],
-            export_path => $_export_dir
+            export_path => $_export_dir,
           }
 
           File["${_export_dir}"] -> Nfs::Server::Export["${_export_dir}"]
         }
 
         $files = [
-          '#{exported_files.join("',\n  '")}'
+          '#{exported_files.join("',\n  '")}',
         ]
 
         $dir_attr = {
           ensure => 'directory',
           owner  => 'root',
           group  => 'root',
-          mode   => '0644'
+          mode   => '0644',
         }
 
         $files.each |String $_file| {

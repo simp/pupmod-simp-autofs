@@ -17,19 +17,19 @@ describe 'autofs' do
 
       # autofs::service class is also trivial, so test it here
       it {
-        is_expected.to contain_service('autofs').with({
-                                                        ensure: 'running',
-       enable: true,
-       hasstatus: true,
-       hasrestart: true,
-                                                      })
+        is_expected.to contain_service('autofs').with(
+          ensure: 'running',
+          enable: true,
+          hasstatus: true,
+          hasrestart: true,
+        )
       }
 
       it {
-        is_expected.to contain_exec('autofs_reload').with({
-                                                            command: '/usr/bin/systemctl reload autofs',
-        refreshonly: true,
-                                                          })
+        is_expected.to contain_exec('autofs_reload').with(
+          command: '/usr/bin/systemctl reload autofs',
+          refreshonly: true,
+        )
       }
     end
   end
