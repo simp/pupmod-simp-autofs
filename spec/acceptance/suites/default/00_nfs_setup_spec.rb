@@ -3,13 +3,12 @@ require 'spec_helper_acceptance'
 test_name 'NFS setup'
 
 describe 'NFS setup' do
-
   # only going to use one NFS server
-  server = hosts_with_role( hosts, 'nfs_server' ).first
-  clients = hosts_with_role( hosts, 'nfs_client' )
+  server = hosts_with_role(hosts, 'nfs_server').first
+  clients = hosts_with_role(hosts, 'nfs_client')
 
   context 'disable firewalld' do
-    it 'should stop firewalld service' do
+    it 'stops firewalld service' do
       # OEL test boxes have firewalld running by default and we don't
       # need to test with the firewall here.
       on(hosts, 'puppet resource service firewalld ensure=stopped')
@@ -17,76 +16,82 @@ describe 'NFS setup' do
   end
 
   context 'NFS client set up' do
-    let(:client_hieradata) {{
-      # Set us up for a barebone NFS (no security features)
-      'simp_options::firewall'    => false,
-      'simp_options::kerberos'    => false,
-      'simp_options::stunnel'     => false,
-      'simp_options::tcpwrappers' => false
-    }}
+    let(:client_hieradata) do
+      {
+        # Set us up for a barebone NFS (no security features)
+        'simp_options::firewall'    => false,
+        'simp_options::kerberos'    => false,
+        'simp_options::stunnel'     => false,
+        'simp_options::tcpwrappers' => false,
+      }
+    end
 
     let(:client_manifest) { 'include nfs' }
 
     clients.each do |client|
-      it 'should apply client manifest to install and start NFS client services' do
+      it 'applies client manifest to install and start NFS client services' do
         set_hieradata_on(client, client_hieradata)
-        apply_manifest_on(client, client_manifest, :catch_failures => true)
+        apply_manifest_on(client, client_manifest, catch_failures: true)
       end
 
-      it 'should be idempotent' do
-        apply_manifest_on(client, client_manifest, :catch_changes => true)
+      it 'is idempotent' do
+        apply_manifest_on(client, client_manifest, catch_changes: true)
       end
     end
   end
 
   context "NFS server set up on #{server}" do
-    let(:server_hieradata) {{
-      # Set us up for a barebone NFS (no security features)
-      'simp_options::firewall'    => false,
-      'simp_options::kerberos'    => false,
-      'simp_options::stunnel'     => false,
-      'simp_options::tcpwrappers' => false,
-      'nfs::is_server'            => true
-    }}
+    let(:server_hieradata) do
+      {
+        # Set us up for a barebone NFS (no security features)
+        'simp_options::firewall'    => false,
+        'simp_options::kerberos'    => false,
+        'simp_options::stunnel'     => false,
+        'simp_options::tcpwrappers' => false,
+        'nfs::is_server'            => true,
+      }
+    end
 
     let(:export_root_path) { '/exports' }
-    let(:export_mapping)  { {
-      :data            => {
-        :export_dir     => "#{export_root_path}/data",
-        :exported_files => [ "#{export_root_path}/data/test_file" ]
-      },
-      :apps1 => {
-        :export_dir     => "#{export_root_path}/apps1",
-        :exported_files => [ "#{export_root_path}/apps1/test_file" ]
-      },
-      :apps2 => {
-        :export_dir     => "#{export_root_path}/apps2",
-        :exported_files => [ "#{export_root_path}/apps2/test_file" ]
-      },
-      :apps3 => {
-        :export_dir     => "#{export_root_path}/apps3",
-        :exported_files => [ "#{export_root_path}/apps3/test_file" ]
-      },
-      :home => {
-        :export_dir     => "#{export_root_path}/home",
-        :exported_files => [
-          "#{export_root_path}/home/user1/test_file",
-          "#{export_root_path}/home/user2/test_file"
-        ]
+    let(:export_mapping) do
+      {
+        data: {
+          export_dir: "#{export_root_path}/data",
+          exported_files: [ "#{export_root_path}/data/test_file" ],
+        },
+        apps1: {
+          export_dir: "#{export_root_path}/apps1",
+          exported_files: [ "#{export_root_path}/apps1/test_file" ],
+        },
+        apps2: {
+          export_dir: "#{export_root_path}/apps2",
+          exported_files: [ "#{export_root_path}/apps2/test_file" ],
+        },
+        apps3: {
+          export_dir: "#{export_root_path}/apps3",
+          exported_files: [ "#{export_root_path}/apps3/test_file" ],
+        },
+        home: {
+          export_dir: "#{export_root_path}/home",
+          exported_files: [
+            "#{export_root_path}/home/user1/test_file",
+            "#{export_root_path}/home/user2/test_file",
+          ],
+        },
       }
-    } }
+    end
 
-    let(:export_dirs) { export_mapping.map { |name,info| info[:export_dir] }.flatten }
-    let(:exported_files) { export_mapping.map { |name,info| info[:exported_files] }.flatten }
+    let(:export_dirs) { export_mapping.map { |_name, info| info[:export_dir] }.flatten }
+    let(:exported_files) { export_mapping.map { |_name, info| info[:exported_files] }.flatten }
     let(:file_content_base) { 'This is a test file from' }
-    let(:server_manifest) {
+    let(:server_manifest) do
       <<~EOM
         file { '#{export_root_path}':
           ensure  => 'directory',
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
-          seltype => 'default_t'
+          seltype => 'default_t',
         }
 
         $export_dirs = [
@@ -98,26 +103,26 @@ describe 'NFS setup' do
             ensure => 'directory',
             owner  => 'root',
             group  => 'root',
-            mode   => '0644'
+            mode   => '0644',
           }
 
           nfs::server::export { $_export_dir:
             clients     => ['*'],
-            export_path => $_export_dir
+            export_path => $_export_dir,
           }
 
           File["${_export_dir}"] -> Nfs::Server::Export["${_export_dir}"]
         }
 
         $files = [
-          '#{exported_files.join("',\n  '")}'
+          '#{exported_files.join("',\n  '")}',
         ]
 
         $dir_attr = {
           ensure => 'directory',
           owner  => 'root',
           group  => 'root',
-          mode   => '0644'
+          mode   => '0644',
         }
 
         $files.each |String $_file| {
@@ -133,18 +138,18 @@ describe 'NFS setup' do
           }
         }
       EOM
-    }
+    end
 
-    it 'should apply server manifest to export' do
+    it 'applies server manifest to export' do
       set_hieradata_on(server, server_hieradata)
-      apply_manifest_on(server, server_manifest, :catch_failures => true)
+      apply_manifest_on(server, server_manifest, catch_failures: true)
     end
 
-    it 'should be idempotent' do
-      apply_manifest_on(server, server_manifest, :catch_changes => true)
+    it 'is idempotent' do
+      apply_manifest_on(server, server_manifest, catch_changes: true)
     end
 
-    it 'should export shared dirs' do
+    it 'exports shared dirs' do
       on(server, 'exportfs -v')
       export_dirs.each do |dir|
         on(server, "exportfs -v | grep -w #{dir}")
