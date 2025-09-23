@@ -5,7 +5,7 @@ describe 'Autofs::Directmapping' do
     it 'allows struct without options' do
       struct = {
         'key'      => '/net/apps',
-        'location' => 'nfs.example.com:/exports/apps'
+        'location' => 'nfs.example.com:/exports/apps',
       }
       is_expected.to allow_value(struct)
     end
@@ -14,7 +14,7 @@ describe 'Autofs::Directmapping' do
       struct = {
         'key'      => '/net/data',
         'options'  => '-fstype=nfs,soft,rw',
-        'location' => 'nfs.example.com:/exports/data'
+        'location' => 'nfs.example.com:/exports/data',
       }
       is_expected.to allow_value(struct)
     end
@@ -25,7 +25,7 @@ describe 'Autofs::Directmapping' do
       it 'fails when key is not a fully qualified path' do
         struct = {
           'key'      => 'apps',
-          'location' => 'nfs.example.com:/exports/apps'
+          'location' => 'nfs.example.com:/exports/apps',
         }
         is_expected.not_to allow_value(struct)
       end
@@ -36,7 +36,7 @@ describe 'Autofs::Directmapping' do
         struct = {
           'key'      => '/net/apps',
           'options'  => ' -fstype=nfs,soft,rw',
-          'location' => 'nfs.example.com:/exports/apps'
+          'location' => 'nfs.example.com:/exports/apps',
         }
         is_expected.not_to allow_value(struct)
       end
@@ -45,7 +45,7 @@ describe 'Autofs::Directmapping' do
         struct = {
           'key'      => '/net/apps',
           'options'  => '-fstype=nfs,soft,rw ',
-          'location' => 'nfs.example.com:/exports/apps'
+          'location' => 'nfs.example.com:/exports/apps',
         }
         is_expected.not_to allow_value(struct)
       end
@@ -54,7 +54,7 @@ describe 'Autofs::Directmapping' do
         struct = {
           'key'      => '/net/apps',
           'options'  => '-fstype=nfs, soft, rw',
-          'location' => 'nfs.example.com:/exports/apps'
+          'location' => 'nfs.example.com:/exports/apps',
         }
         is_expected.not_to allow_value(struct)
       end
@@ -64,7 +64,7 @@ describe 'Autofs::Directmapping' do
       it 'fails when location is empty' do
         struct = {
           'key'      => '/net/apps',
-          'location' => ''
+          'location' => '',
         }
         is_expected.not_to allow_value(struct)
       end
@@ -72,7 +72,7 @@ describe 'Autofs::Directmapping' do
       it 'fails when location has all whitespace characters' do
         {
           'key'      => '/net/apps',
-          'location' => " \t "
+          'location' => " \t ",
         }
       end
     end

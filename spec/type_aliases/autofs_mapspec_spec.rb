@@ -8,8 +8,8 @@ describe 'Autofs::Mapspec' do
         'mappings'    => {
           'key'      => '/net/data',
           'options'  => '-fstype=nfs,soft,rw',
-          'location' => 'nfs.example.com:/exports/data'
-        }
+          'location' => 'nfs.example.com:/exports/data',
+        },
       }
 
       is_expected.to allow_value(struct)
@@ -23,14 +23,14 @@ describe 'Autofs::Mapspec' do
           {
             'key'      => 'v2',
             'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-            'location' => 'nfs.example.com:/exports/apps2'
+            'location' => 'nfs.example.com:/exports/apps2',
           },
           {
             'key'      => 'latest',
             'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-            'location' => 'nfs.example.com:/exports/apps3'
+            'location' => 'nfs.example.com:/exports/apps3',
           },
-        ]
+        ],
       }
 
       is_expected.to allow_value(struct)
@@ -44,8 +44,8 @@ describe 'Autofs::Mapspec' do
         'mappings'    => {
           'key'      => '/net/data',
           'options'  => '-fstype=nfs,soft,rw',
-          'location' => 'nfs.example.com:/exports/data'
-        }
+          'location' => 'nfs.example.com:/exports/data',
+        },
       }
 
       is_expected.not_to allow_value(struct)
@@ -56,8 +56,8 @@ describe 'Autofs::Mapspec' do
         'mount_point' => '/-',
         'mappings'    => {
           'key'      => 'apps',
-          'location' => 'nfs.example.com:/exports/apps'
-        }
+          'location' => 'nfs.example.com:/exports/apps',
+        },
       }
       is_expected.not_to allow_value(struct)
     end
@@ -69,9 +69,9 @@ describe 'Autofs::Mapspec' do
           {
             'key'      => 'apps',
             'options'  => '-fstype=nfs, soft, nfsvers=4, ro',
-            'location' => 'nfs.example.com:/exports/apps'
+            'location' => 'nfs.example.com:/exports/apps',
           },
-        ]
+        ],
       }
 
       is_expected.not_to allow_value(struct)

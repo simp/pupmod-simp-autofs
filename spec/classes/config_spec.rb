@@ -15,7 +15,7 @@ describe 'autofs' do
                                                                   owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
               [autofs]
@@ -39,7 +39,7 @@ describe 'autofs' do
                                                                        owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
               USE_MISC_DEVICE="yes"
@@ -52,7 +52,7 @@ describe 'autofs' do
                                                                   owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
 
@@ -74,7 +74,7 @@ describe 'autofs' do
             mode: '0640',
             seltype: 'etc_t',
             recurse: true,
-            purge: true
+            purge: true,
                                                                        })
           }
 
@@ -85,7 +85,7 @@ describe 'autofs' do
             group: 'root',
             mode: '0640',
             recurse: true,
-            purge: true
+            purge: true,
                                                                        })
           }
 
@@ -101,7 +101,7 @@ describe 'autofs' do
            mount_wait: 30,
            umount_wait: 40,
            map_hash_table_size: 4096,
-           sss_master_map_wait: 50
+           sss_master_map_wait: 50,
             }
           end
 
@@ -112,7 +112,7 @@ describe 'autofs' do
                                                                   owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
               [autofs]
@@ -149,7 +149,7 @@ describe 'autofs' do
                                                                   owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
               [autofs]
@@ -185,7 +185,7 @@ describe 'autofs' do
            entry_object_class: 'automount',
            map_attribute: 'automountMapName',
            entry_attribute: 'automountKey',
-           value_attribute: 'automountInformation'
+           value_attribute: 'automountInformation',
             }
           end
 
@@ -197,7 +197,7 @@ describe 'autofs' do
                                                                   owner: 'root',
             group: 'root',
             mode: '0644',
-            content: <<~EOM
+            content: <<~EOM,
               # This file is managed by Puppet (simp-autofs module). Changes will be
               # overwritten at the next Puppet run.
               [autofs]
@@ -233,8 +233,8 @@ describe 'autofs' do
             {
               custom_autofs_conf_options: {
                 'some'    => 'future',
-                'options' => 'tbd'
-              }
+                'options' => 'tbd',
+              },
             }
           end
 
@@ -290,25 +290,25 @@ describe 'autofs' do
                   'mappings'    => [
                     {
                       'key'      => 'v1',
-                      'location' => '1.2.3.4:/exports/apps1'
+                      'location' => '1.2.3.4:/exports/apps1',
                     },
                     {
                       'key'      => 'v2',
                       'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                      'location' => '1.2.3.5:/exports/apps2'
+                      'location' => '1.2.3.5:/exports/apps2',
                     },
                     {
                       'key'      => 'latest',
-                      'location' => '1.2.3.6:/exports/apps3'
+                      'location' => '1.2.3.6:/exports/apps3',
                     },
-                  ]
+                  ],
                 },
                 'data' => {
                   'mount_point' => '/-',
                   'mappings'    => {
                     'key'      => '/net/data',
-                    'location' => '1.2.3.4:/exports/data'
-                  }
+                    'location' => '1.2.3.4:/exports/data',
+                  },
                 },
                 'home' => {
                   'mount_point'    => '/home',
@@ -316,10 +316,10 @@ describe 'autofs' do
                   'mappings'       => [ {
                     'key'      => '*',
                     'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                    'location' => '1.2.3.4:/exports/home/&'
-                  } ]
-                }
-              }
+                    'location' => '1.2.3.4:/exports/home/&',
+                  } ],
+                },
+              },
             }
           end
 

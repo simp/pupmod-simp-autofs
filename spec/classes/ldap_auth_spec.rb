@@ -17,7 +17,7 @@ describe 'autofs' do
                                                                             owner: 'root',
             group: 'root',
             mode: '0600',
-            content: <<~EOM
+            content: <<~EOM,
               <?xml version="1.0" ?>
               <autofs_ldap_sasl_conf
                 usetls="yes"
@@ -145,7 +145,7 @@ describe 'autofs' do
           let(:params) do
             {
               ldap: true,
-           pki: 'simp'
+           pki: 'simp',
             }
           end
 
@@ -157,7 +157,7 @@ describe 'autofs' do
           it {
             is_expected.to create_pki__copy('autofs').with({
                                                              source: '/etc/pki/simp/x509',
-            pki: 'simp'
+            pki: 'simp',
                                                            })
           }
         end

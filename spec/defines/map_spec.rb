@@ -15,8 +15,8 @@ describe 'autofs::map' do
               mount_point: '/-',
             mappings: {
               'key'      => '/net/apps',
-              'location' => '1.2.3.4:/exports/apps'
-            }
+              'location' => '1.2.3.4:/exports/apps',
+            },
             }
           end
 
@@ -25,14 +25,14 @@ describe 'autofs::map' do
           it {
             is_expected.to contain_autofs__masterfile(title).with({
                                                                     mount_point: params[:mount_point],
-             map: map_file
+             map: map_file,
                                                                   })
           }
 
           it {
             is_expected.to contain_autofs__mapfile(title).with({
                                                                  mappings: params[:mappings],
-             maps_dir: '/etc/autofs.maps.simp.d'
+             maps_dir: '/etc/autofs.maps.simp.d',
                                                                })
           }
         end
@@ -45,8 +45,8 @@ describe 'autofs::map' do
             mappings: {
               'key'      => '/net/apps',
               'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-              'location' => '1.2.3.4:/exports/apps'
-            }
+              'location' => '1.2.3.4:/exports/apps',
+            },
             }
           end
 
@@ -54,14 +54,14 @@ describe 'autofs::map' do
             is_expected.to contain_autofs__masterfile(title).with({
                                                                     mount_point: params[:mount_point],
              map: map_file,
-             options: params[:master_options]
+             options: params[:master_options],
                                                                   })
           }
 
           it {
             is_expected.to contain_autofs__mapfile(title).with({
                                                                  mappings: params[:mappings],
-             maps_dir: '/etc/autofs.maps.simp.d'
+             maps_dir: '/etc/autofs.maps.simp.d',
                                                                })
           }
         end
@@ -77,8 +77,8 @@ describe 'autofs::map' do
               mount_point: '/home',
             mappings: [ {
               'key'      => '*',
-              'location' => '1.2.3.4:/exports/home/&'
-            } ]
+              'location' => '1.2.3.4:/exports/home/&',
+            } ],
             }
           end
 
@@ -86,14 +86,14 @@ describe 'autofs::map' do
           it {
             is_expected.to contain_autofs__masterfile(title).with({
                                                                     mount_point: params[:mount_point],
-             map: map_file
+             map: map_file,
                                                                   })
           }
 
           it {
             is_expected.to contain_autofs__mapfile(title).with({
                                                                  mappings: params[:mappings],
-             maps_dir: '/etc/autofs.maps.simp.d'
+             maps_dir: '/etc/autofs.maps.simp.d',
                                                                })
           }
         end
@@ -106,8 +106,8 @@ describe 'autofs::map' do
             mappings: [ {
               'key'      => '*',
               'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-              'location' => '1.2.3.4:/exports/home/&'
-            } ]
+              'location' => '1.2.3.4:/exports/home/&',
+            } ],
             }
           end
 
@@ -116,14 +116,14 @@ describe 'autofs::map' do
             is_expected.to contain_autofs__masterfile(title).with({
                                                                     mount_point: params[:mount_point],
              map: map_file,
-             options: params[:master_options]
+             options: params[:master_options],
                                                                   })
           }
 
           it {
             is_expected.to contain_autofs__mapfile(title).with({
                                                                  mappings: params[:mappings],
-             maps_dir: '/etc/autofs.maps.simp.d'
+             maps_dir: '/etc/autofs.maps.simp.d',
                                                                })
           }
         end
@@ -138,18 +138,18 @@ describe 'autofs::map' do
           mappings: [
             {
               'key'      => 'v1',
-              'location' => '1.2.3.4:/exports/apps1'
+              'location' => '1.2.3.4:/exports/apps1',
             },
             {
               'key'      => 'v2',
               'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-              'location' => '1.2.3.5:/exports/apps2'
+              'location' => '1.2.3.5:/exports/apps2',
             },
             {
               'key'      => 'latest',
-              'location' => '1.2.3.6:/exports/apps3'
+              'location' => '1.2.3.6:/exports/apps3',
             },
-          ]
+          ],
           }
         end
 
@@ -157,14 +157,14 @@ describe 'autofs::map' do
         it {
           is_expected.to contain_autofs__masterfile(title).with({
                                                                   mount_point: params[:mount_point],
-           map: map_file
+           map: map_file,
                                                                 })
         }
 
         it {
           is_expected.to contain_autofs__mapfile(title).with({
                                                                mappings: params[:mappings],
-           maps_dir: '/etc/autofs.maps.simp.d'
+           maps_dir: '/etc/autofs.maps.simp.d',
                                                              })
         }
       end
@@ -176,8 +176,8 @@ describe 'autofs::map' do
             mount_point: '/-',
           mappings: {
             'key'      => '/net/apps',
-            'location' => '1.2.3.4:/exports/apps'
-          }
+            'location' => '1.2.3.4:/exports/apps',
+          },
           }
         end
 
@@ -201,8 +201,8 @@ describe 'autofs::map' do
             mount_point: '/-',
           mappings: {
             'key'      => '/net/apps',
-            'location' => '1.2.3.4:/exports/apps'
-          }
+            'location' => '1.2.3.4:/exports/apps',
+          },
           }
         end
 

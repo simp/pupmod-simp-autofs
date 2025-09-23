@@ -14,8 +14,8 @@ describe 'autofs::mapfile' do
             {
               mappings: {
                 'key'      => '/net/apps',
-                'location' => '1.2.3.4:/exports/apps'
-              }
+                'location' => '1.2.3.4:/exports/apps',
+              },
             }
           end
 
@@ -27,11 +27,11 @@ describe 'autofs::mapfile' do
                                                          owner: 'root',
              group: 'root',
              mode: '0640',
-             content: <<~EOM
-              # This file is managed by Puppet (simp-autofs module).  Changes will be
-              # overwritten at the next puppet run.
-              /net/apps    1.2.3.4:/exports/apps
-            EOM
+             content: <<~EOM,
+               # This file is managed by Puppet (simp-autofs module).  Changes will be
+               # overwritten at the next puppet run.
+               /net/apps    1.2.3.4:/exports/apps
+             EOM
                                                        })
           }
 
@@ -44,8 +44,8 @@ describe 'autofs::mapfile' do
               mappings: {
                 'key'      => '/net/apps',
                 'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                'location' => '1.2.3.4:/exports/apps'
-              }
+                'location' => '1.2.3.4:/exports/apps',
+              },
             }
           end
 
@@ -54,10 +54,10 @@ describe 'autofs::mapfile' do
           it {
             is_expected.to contain_file(map_file).with_content(
              <<~EOM,
-              # This file is managed by Puppet (simp-autofs module).  Changes will be
-              # overwritten at the next puppet run.
-              /net/apps  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/apps
-            EOM
+               # This file is managed by Puppet (simp-autofs module).  Changes will be
+               # overwritten at the next puppet run.
+               /net/apps  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/apps
+             EOM
            )
           }
 
@@ -74,8 +74,8 @@ describe 'autofs::mapfile' do
             {
               mappings: [ {
                 'key'      => '*',
-                'location' => '1.2.3.4:/exports/home/&'
-              } ]
+                'location' => '1.2.3.4:/exports/home/&',
+              } ],
             }
           end
 
@@ -84,10 +84,10 @@ describe 'autofs::mapfile' do
           it {
             is_expected.to contain_file(map_file).with_content(
              <<~EOM,
-              # This file is managed by Puppet (simp-autofs module).  Changes will be
-              # overwritten at the next puppet run.
-              *    1.2.3.4:/exports/home/&
-            EOM
+               # This file is managed by Puppet (simp-autofs module).  Changes will be
+               # overwritten at the next puppet run.
+               *    1.2.3.4:/exports/home/&
+             EOM
            )
           }
 
@@ -100,8 +100,8 @@ describe 'autofs::mapfile' do
               mappings: [ {
                 'key'      => '*',
                 'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                'location' => '1.2.3.4:/exports/home/&'
-              } ]
+                'location' => '1.2.3.4:/exports/home/&',
+              } ],
             }
           end
 
@@ -110,10 +110,10 @@ describe 'autofs::mapfile' do
           it {
             is_expected.to contain_file(map_file).with_content(
              <<~EOM,
-              # This file is managed by Puppet (simp-autofs module).  Changes will be
-              # overwritten at the next puppet run.
-              *  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/home/&
-            EOM
+               # This file is managed by Puppet (simp-autofs module).  Changes will be
+               # overwritten at the next puppet run.
+               *  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.4:/exports/home/&
+             EOM
            )
           }
 
@@ -129,18 +129,18 @@ describe 'autofs::mapfile' do
             mappings: [
               {
                 'key'      => 'v1',
-                'location' => '1.2.3.4:/exports/apps1'
+                'location' => '1.2.3.4:/exports/apps1',
               },
               {
                 'key'      => 'v2',
                 'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-                'location' => '1.2.3.5:/exports/apps2'
+                'location' => '1.2.3.5:/exports/apps2',
               },
               {
                 'key'      => 'latest',
-                'location' => '1.2.3.6:/exports/apps3'
+                'location' => '1.2.3.6:/exports/apps3',
               },
-            ]
+            ],
           }
         end
 
@@ -149,12 +149,12 @@ describe 'autofs::mapfile' do
         it {
           is_expected.to contain_file(map_file).with_content(
            <<~EOM,
-            # This file is managed by Puppet (simp-autofs module).  Changes will be
-            # overwritten at the next puppet run.
-            v1    1.2.3.4:/exports/apps1
-            v2  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.5:/exports/apps2
-            latest    1.2.3.6:/exports/apps3
-          EOM
+             # This file is managed by Puppet (simp-autofs module).  Changes will be
+             # overwritten at the next puppet run.
+             v1    1.2.3.4:/exports/apps1
+             v2  -fstype=nfs,soft,nfsvers=4,ro  1.2.3.5:/exports/apps2
+             latest    1.2.3.6:/exports/apps3
+           EOM
          )
         }
 
@@ -167,9 +167,9 @@ describe 'autofs::mapfile' do
           {
             mappings: {
               'key'      => '/net/apps',
-              'location' => '1.2.3.4:/exports/apps'
+              'location' => '1.2.3.4:/exports/apps',
             },
-          maps_dir: '/etc/maps.d'
+          maps_dir: '/etc/maps.d',
           }
         end
 
@@ -186,8 +186,8 @@ describe 'autofs::mapfile' do
           {
             mappings: {
               'key'      => '/net/apps',
-              'location' => '1.2.3.4:/exports/apps'
-            }
+              'location' => '1.2.3.4:/exports/apps',
+            },
           }
         end
 
@@ -204,8 +204,8 @@ describe 'autofs::mapfile' do
           {
             mappings: {
               'key'      => '/net/apps',
-              'location' => '1.2.3.4:/exports/apps'
-            }
+              'location' => '1.2.3.4:/exports/apps',
+            },
           }
         end
 

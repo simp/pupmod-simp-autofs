@@ -12,7 +12,7 @@ describe 'autofs::masterfile' do
         let(:params) do
           {
             mount_point: '/-',
-         map: file_map
+         map: file_map,
           }
         end
 
@@ -24,7 +24,7 @@ describe 'autofs::masterfile' do
                                                                      owner: 'root',
           group: 'root',
           mode: '0640',
-          content: <<~EOM
+          content: <<~EOM,
             # This file is managed by Puppet (simp-autofs module).  Changes will be
             # overwritten at the next puppet run.
             /-  /etc/autofs.maps.d/my_stuff
@@ -39,7 +39,7 @@ describe 'autofs::masterfile' do
         let(:params) do
           {
             mount_point: '/net/my_stuff',
-         map: file_map
+         map: file_map,
           }
         end
 
@@ -63,7 +63,7 @@ describe 'autofs::masterfile' do
           {
             mount_point: '/home',
          map: '/some/exec/to/run',
-         map_type: 'program'
+         map_type: 'program',
           }
         end
 
@@ -87,7 +87,7 @@ describe 'autofs::masterfile' do
          map: 'ou=auto.indirect,dc=example,dc=com',
          map_type: 'ldap',
          map_format: 'hesiod',
-         options: 'strictexpire --strict'
+         options: 'strictexpire --strict',
           }
         end
 
@@ -124,7 +124,7 @@ describe 'autofs::masterfile' do
         let(:params) do
           {
             mount_point: '/net/my_stuff',
-         map: file_map
+         map: file_map,
           }
         end
 
@@ -141,7 +141,7 @@ describe 'autofs::masterfile' do
             {
               mount_point: 'my_stuff',
            map: file_map,
-           map_type: 'file'
+           map_type: 'file',
             }
           end
 
@@ -153,7 +153,7 @@ describe 'autofs::masterfile' do
             {
               mount_point: 'my_stuff',
            map: '/some/exec/to/run',
-           map_type: 'program'
+           map_type: 'program',
             }
           end
 

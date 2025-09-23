@@ -76,7 +76,7 @@ describe 'autofs::map::master' do
       context 'with content specified' do
         let(:params) do
           {
-            content: "/mnt/apps ldap:ou=auto.indirect,dc=example,dc=com\n"
+            content: "/mnt/apps ldap:ou=auto.indirect,dc=example,dc=com\n",
           }
         end
 

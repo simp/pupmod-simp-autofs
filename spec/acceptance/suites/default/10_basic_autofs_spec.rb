@@ -22,19 +22,19 @@ describe 'basic autofs' do
          {
            'key'      => 'v1',
            'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps1"
+           'location' => "#{server_fqdn}:/exports/apps1",
          },
          {
            'key'      => 'v2',
            'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps2"
+           'location' => "#{server_fqdn}:/exports/apps2",
          },
          {
            'key'      => 'latest',
            'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-           'location' => "#{server_fqdn}:/exports/apps3"
+           'location' => "#{server_fqdn}:/exports/apps3",
          },
-       ]
+       ],
      },
      # direct mount
      'data' => {
@@ -42,8 +42,8 @@ describe 'basic autofs' do
        'mappings'    => {
          'key'      => '/net/data',
          'options'  => '-fstype=nfs,soft,nfsvers=4,ro',
-         'location' => "#{server_fqdn}:/exports/data"
-       }
+         'location' => "#{server_fqdn}:/exports/data",
+       },
      },
      # indirect mount with wildcard key and key substitution
      # Don't use /home or vagrant's home directory will be
@@ -54,10 +54,10 @@ describe 'basic autofs' do
        'mappings'       => [ {
          'key'      => '*',
          'options'  => '-fstype=nfs,soft,nfsvers=4,rw',
-         'location' => "#{server_fqdn}:/exports/home/&"
-       } ]
-     }
-   }
+         'location' => "#{server_fqdn}:/exports/home/&",
+       } ],
+     },
+   },
     }
   end
 

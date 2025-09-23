@@ -22,7 +22,7 @@ describe 'NFS setup' do
         'simp_options::firewall' => false,
      'simp_options::kerberos'    => false,
      'simp_options::stunnel'     => false,
-     'simp_options::tcpwrappers' => false
+     'simp_options::tcpwrappers' => false,
       }
     end
 
@@ -48,7 +48,7 @@ describe 'NFS setup' do
      'simp_options::kerberos'    => false,
      'simp_options::stunnel'     => false,
      'simp_options::tcpwrappers' => false,
-     'nfs::is_server'            => true
+     'nfs::is_server'            => true,
       }
     end
 
@@ -57,27 +57,27 @@ describe 'NFS setup' do
       {
         data: {
           export_dir: "#{export_root_path}/data",
-          exported_files: [ "#{export_root_path}/data/test_file" ]
+          exported_files: [ "#{export_root_path}/data/test_file" ],
         },
       apps1: {
         export_dir: "#{export_root_path}/apps1",
-        exported_files: [ "#{export_root_path}/apps1/test_file" ]
+        exported_files: [ "#{export_root_path}/apps1/test_file" ],
       },
       apps2: {
         export_dir: "#{export_root_path}/apps2",
-        exported_files: [ "#{export_root_path}/apps2/test_file" ]
+        exported_files: [ "#{export_root_path}/apps2/test_file" ],
       },
       apps3: {
         export_dir: "#{export_root_path}/apps3",
-        exported_files: [ "#{export_root_path}/apps3/test_file" ]
+        exported_files: [ "#{export_root_path}/apps3/test_file" ],
       },
       home: {
         export_dir: "#{export_root_path}/home",
         exported_files: [
           "#{export_root_path}/home/user1/test_file",
           "#{export_root_path}/home/user2/test_file",
-        ]
-      }
+        ],
+      },
       }
     end
 

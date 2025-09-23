@@ -21,14 +21,14 @@ describe 'autofs' do
                                                         ensure: 'running',
        enable: true,
        hasstatus: true,
-       hasrestart: true
+       hasrestart: true,
                                                       })
       }
 
       it {
         is_expected.to contain_exec('autofs_reload').with({
                                                             command: '/usr/bin/systemctl reload autofs',
-        refreshonly: true
+        refreshonly: true,
                                                           })
       }
     end
