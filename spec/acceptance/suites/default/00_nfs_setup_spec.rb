@@ -22,7 +22,6 @@ describe 'NFS setup' do
         'simp_options::firewall'    => false,
         'simp_options::kerberos'    => false,
         'simp_options::stunnel'     => false,
-        'simp_options::tcpwrappers' => false,
       }
     end
 
@@ -47,7 +46,6 @@ describe 'NFS setup' do
         'simp_options::firewall'    => false,
         'simp_options::kerberos'    => false,
         'simp_options::stunnel'     => false,
-        'simp_options::tcpwrappers' => false,
         'nfs::is_server'            => true,
       }
     end
