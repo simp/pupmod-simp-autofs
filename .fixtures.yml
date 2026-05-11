@@ -3,7 +3,6 @@ fixtures:
   repositories:
     augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl.git
     augeasproviders_core: https://github.com/simp/augeasproviders_core.git
-    compliance_markup: https://github.com/simp/pupmod-simp-compliance_markup.git
     concat: https://github.com/simp/puppetlabs-concat.git
     disa_stig-el7-baseline:
       repo: https://github.com/simp/inspec-profile-disa_stig-el7.git
