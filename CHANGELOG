@@ -1,3 +1,6 @@
+* Mon May 11 2026 Steven Pritchard <steve@sicura.us> - 8.0.0
+- Remove unmaintained Compliance Engine data
+
 * Mon Oct 23 2023 Steven Pritchard <steve@sicura.us> - 7.5.0
 - [puppetsync] Add EL9 support
 
