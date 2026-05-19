@@ -4,10 +4,6 @@ fixtures:
     augeasproviders_sysctl: https://github.com/simp/augeasproviders_sysctl.git
     augeasproviders_core: https://github.com/simp/augeasproviders_core.git
     concat: https://github.com/simp/puppetlabs-concat.git
-    disa_stig-el7-baseline:
-      repo: https://github.com/simp/inspec-profile-disa_stig-el7.git
-      branch: master
-      target: spec/fixtures/inspec_deps/inspec_profiles/profiles
     nfs: https://github.com/simp/pupmod-simp-nfs.git
     pki: https://github.com/simp/pupmod-simp-pki.git
     selinux_core: https://github.com/simp/pupmod-puppetlabs-selinux_core.git
