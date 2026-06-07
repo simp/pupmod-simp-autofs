@@ -4,7 +4,7 @@ test_name 'NFS setup'
 
 describe 'NFS setup' do
   # only going to use one NFS server
-  server = hosts_with_role(hosts, 'nfs_server').first
+  server = hosts_with_role(hosts, 'nfs_server').first # rubocop:disable RSpec/LeakyLocalVariable
   clients = hosts_with_role(hosts, 'nfs_client')
 
   context 'disable firewalld' do
