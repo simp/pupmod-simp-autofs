@@ -77,7 +77,7 @@
 #
 class autofs::ldap_auth (
   Optional[String]                              $user                = simplib::lookup('simp_options::ldap::bind_dn', { 'default_value' => undef }),
-  Optional[String]                              $secret              = simplib::lookup('simp_options::ldap::bind_pw', { 'default_value' =>  undef}),
+  Optional[String]                              $secret              = simplib::lookup('simp_options::ldap::bind_pw', { 'default_value' => undef }),
   Optional[String]                              $encoded_secret      = undef,
   Stdlib::Absolutepath                          $ldap_auth_conf_file = $autofs::auth_conf_file,
   Boolean                                       $usetls              = true,

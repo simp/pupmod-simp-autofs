@@ -72,7 +72,6 @@ define autofs::mapfile (
   Optional[Stdlib::Absolutepath]                                   $maps_dir = undef
 
 ) {
-
   include 'autofs'
 
   if $maps_dir =~ Undef {
@@ -88,7 +87,7 @@ define autofs::mapfile (
     group   => 'root',
     mode    => '0640',
     content => epp("${module_name}/etc/autofs.maps.simp.d/map.epp", {
-      'mappings' => $mappings} )
+    'mappings' => $mappings })
   }
 
   if $mappings =~ Autofs::Directmapping {

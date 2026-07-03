@@ -21,7 +21,7 @@
 #
 # @author https://github.com/simp/pupmod-simp-autofs/graphs/contributors
 #
-class autofs::config::pki(
+class autofs::config::pki (
   String               $app_pki_external_source = simplib::lookup('simp_options::pki::source', { 'default_value' => '/etc/pki/simp/x509' }),
   Stdlib::Absolutepath $app_pki_dir             = '/etc/pki/simp_apps/autofs/x509',
   Stdlib::Absolutepath $app_pki_cert            = "${app_pki_dir}/public/${facts['networking']['fqdn']}.pub",

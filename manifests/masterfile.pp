@@ -87,7 +87,6 @@ define autofs::masterfile (
   Optional[Enum['sun','hesiod']] $map_format = undef,
   Optional[String]               $options    = undef
 ) {
-
   include 'autofs'
 
   # Validate format of the $map String for the subset of cases that we can!

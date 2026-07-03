@@ -39,9 +39,8 @@ define autofs::map::master (
   Optional[String]               $options     = undef,
   Optional[String]               $content     = undef
 ) {
-
   deprecation('autofs::map::master',
-    'autofs::map::master is deprecated. Use autofs::masterfile or autofs::map instead')
+  'autofs::map::master is deprecated. Use autofs::masterfile or autofs::map instead')
 
   include 'autofs'
 

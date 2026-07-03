@@ -295,7 +295,7 @@ class autofs (
   Boolean                         $automount_use_misc_device      = true,
   Optional[String]                $automount_options              = undef,
   Stdlib::Absolutepath            $master_conf_dir                = '/etc/auto.master.simp.d',
-  Array[Stdlib::Absolutepath]     $master_include_dirs            = [ '/etc/auto.master.d' ],
+  Array[Stdlib::Absolutepath]     $master_include_dirs            = ['/etc/auto.master.d'],
   Stdlib::Absolutepath            $maps_dir                       = '/etc/autofs.maps.simp.d',
   Hash[String,Autofs::Mapspec]    $maps                           = {},
   String                          $samba_package_ensure           = simplib::lookup('simp_options::package_ensure', { 'default_value' => 'installed' }),
@@ -303,7 +303,6 @@ class autofs (
   Boolean                         $ldap                           = simplib::lookup('simp_options::ldap', { 'default_value' => false }),
   Variant[Enum['simp'],Boolean]   $pki                            = simplib::lookup('simp_options::pki', { 'default_value' => false })
 ) {
-
   include 'autofs::install'
   include 'autofs::config'
   include 'autofs::service'
