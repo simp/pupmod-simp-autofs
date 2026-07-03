@@ -155,7 +155,7 @@
 - Strong typed
 - Changed empty string defaults to undef
 
-* Thu Dec 02 2016 Nick Markowski <nmarkowski@keywcorp.com> - 5.0.1-0
+* Fri Dec 02 2016 Nick Markowski <nmarkowski@keywcorp.com> - 5.0.1-0
 - Removed pupmod-simp-sysctl in favor of augeas-sysctl
 
 * Mon Nov 21 2016 Chris Tessmer <chris.tessmer@onyxpoint.com> - 5.0.0-0
