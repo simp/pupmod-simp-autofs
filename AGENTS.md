@@ -67,7 +67,7 @@ replacing whitespace and `/` with `__` to form safe filenames):
   map (`sun` format), ordered `Mapfile -> Masterfile`.
 - **`autofs::masterfile` (`manifests/masterfile.pp`, define)** — writes one
   `${name}.autofs` entry into `master_conf_dir`. Validates that `$map` is an
-  absolute path when `map_type` is `file`/`program`/unspecified. Always
+  absolute path when `map_type` is `file` or `program`. Always
   `notify`s `Exec['autofs_reload']`.
 - **`autofs::mapfile` (`manifests/mapfile.pp`, define)** — writes one
   `${name}.map` into `maps_dir`. **Only direct maps** (`Autofs::Directmapping`)
