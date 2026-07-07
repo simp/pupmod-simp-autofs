@@ -44,9 +44,8 @@ define autofs::map::entry (
   Optional[String] $options  = undef,
   Optional[String] $content  = undef
 ) {
-
   deprecation('autofs::map::entry',
-    'autofs::map::entry is deprecated. Use autofs::mapfile or autofs::map instead')
+  'autofs::map::entry is deprecated. Use autofs::mapfile or autofs::map instead')
 
   simplib::assert_optional_dependency($module_name, 'puppetlabs/concat')
 

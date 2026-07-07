@@ -83,12 +83,11 @@
 #
 # @author https://github.com/simp/pupmod-simp-autofs/graphs/contributors
 #
-define autofs::map(
+define autofs::map (
   Stdlib::Absolutepath                                             $mount_point,
   Optional[String]                                                 $master_options = undef,
   Variant[Autofs::Directmapping, Array[Autofs::Indirectmapping,1]] $mappings
 ) {
-
   include 'autofs'
 
   $_safe_name = regsubst(regsubst($name, '^/', ''), '(/|\s)', '__', 'G')
