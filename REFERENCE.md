@@ -466,7 +466,7 @@ Other directories of auto.master configuration files to include
 
 * This module will not manage these directories or their contents.
 
-Default value: `[ '/etc/auto.master.d' ]`
+Default value: `['/etc/auto.master.d']`
 
 ##### <a name="-autofs--maps_dir"></a>`maps_dir`
 
