@@ -1112,4 +1112,3 @@ Struct[{
 Map type for an auto.master entry
 
 Alias of `Enum['file', 'program', 'yp', 'nisplus', 'hesiod', 'ldap', 'ldaps', 'multi']`
-
