@@ -75,6 +75,35 @@ describe 'autofs::masterfile' do
         }
       end
 
+      context 'with the sss map_type' do
+        let(:title) { 'home' }
+        let(:params) do
+          {
+            mount_point: '/home',
+            map: 'auto.master',
+            map_type: 'sss',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file(auto_master_entry_file).with_content(%r{^/home  sss:auto\.master$}) }
+      end
+
+      context 'with the amd map_format' do
+        let(:title) { 'home' }
+        let(:params) do
+          {
+            mount_point: '/home',
+            map: '/etc/auto.home',
+            map_type: 'file',
+            map_format: 'amd',
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file(auto_master_entry_file).with_content(%r{^/home  file,amd:/etc/auto\.home$}) }
+      end
+
       context 'with all optional parameters specified' do
         let(:title) { 'home' }
         let(:params) do

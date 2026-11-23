@@ -31,7 +31,7 @@
 #   * Format of this String must match $map_type:
 #
 #     * $map_type of file|program => Absolute Path
-#     * $map_type of yp|nisplus|hesiod  => String
+#     * $map_type of yp|nisplus|hesiod|sss  => String
 #     * $map_type of ldap|ldaps         => LDAP DN
 #
 # @param map_type
@@ -84,7 +84,7 @@ define autofs::masterfile (
   Stdlib::Absolutepath           $mount_point,
   String                         $map,
   Optional[Autofs::Maptype]      $map_type   = undef,
-  Optional[Enum['sun','hesiod']] $map_format = undef,
+  Optional[Enum['sun','hesiod','amd']] $map_format = undef,
   Optional[String]               $options    = undef
 ) {
   include 'autofs'

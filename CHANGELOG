@@ -1,3 +1,7 @@
+* Mon Nov 23 2026 Hazel Caballero <hazel@sicura.us> - 8.2.0
+- `Autofs::Maptype` now accepts `sss`, and `map_format` in `autofs::masterfile`
+  and `autofs::map::master` now accepts `amd`
+
 * Thu Oct 08 2026 Steven Pritchard <steve@sicura.us> - 8.1.0
 - Add support for OpenVox 9
 - Update metadata.json dependency ranges from the Forge

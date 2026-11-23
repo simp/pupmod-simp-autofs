@@ -14,7 +14,7 @@
 #
 #   * Required unless `$content` is set
 #   * $map_type[file|program]      => Absolute Path
-#   * $map_type[yp|nisplus|hesiod] => String
+#   * $map_type[yp|nisplus|hesiod|sss] => String
 #   * $map_type[ldap|ldaps]        => LDAP DN
 #
 # @param map_type
@@ -35,7 +35,7 @@ define autofs::map::master (
   Optional[Stdlib::Absolutepath] $mount_point = undef,
   Optional[String]               $map_name    = undef,
   Optional[Autofs::Maptype]      $map_type    = undef,
-  Optional[Enum['sun','hesiod']] $map_format  = undef,
+  Optional[Enum['sun','hesiod','amd']] $map_format  = undef,
   Optional[String]               $options     = undef,
   Optional[String]               $content     = undef
 ) {

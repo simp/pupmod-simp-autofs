@@ -1,7 +1,7 @@
 <%- | Stdlib::Absolutepath           $mount_point,
       String                         $map,
       Optional[Autofs::Maptype]      $map_type    = undef,
-      Optional[Enum['sun','hesiod']] $map_format  = undef,
+      Optional[Enum['sun','hesiod','amd']] $map_format  = undef,
       Optional[String]               $options     = undef
     |
 
