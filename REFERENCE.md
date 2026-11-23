@@ -760,7 +760,7 @@ See auto.master(5) -> FORMAT -> map
 
 * Required unless `$content` is set
 * $map_type[file|program]      => Absolute Path
-* $map_type[yp|nisplus|hesiod] => String
+* $map_type[yp|nisplus|hesiod|sss] => String
 * $map_type[ldap|ldaps]        => LDAP DN
 
 Default value: `undef`
@@ -775,7 +775,7 @@ Default value: `undef`
 
 ##### <a name="-autofs--map--master--map_format"></a>`map_format`
 
-Data type: `Optional[Enum['sun','hesiod']]`
+Data type: `Optional[Enum['sun','hesiod','amd']]`
 
 See auto.master(5) -> FORMAT -> format
 
@@ -986,7 +986,7 @@ Name of the map to use
 * Format of this String must match $map_type:
 
   * $map_type of file|program => Absolute Path
-  * $map_type of yp|nisplus|hesiod  => String
+  * $map_type of yp|nisplus|hesiod|sss  => String
   * $map_type of ldap|ldaps         => LDAP DN
 
 ##### <a name="-autofs--masterfile--map_type"></a>`map_type`
@@ -1002,7 +1002,7 @@ Default value: `undef`
 
 ##### <a name="-autofs--masterfile--map_format"></a>`map_format`
 
-Data type: `Optional[Enum['sun','hesiod']]`
+Data type: `Optional[Enum['sun','hesiod','amd']]`
 
 Format of the map data
 
@@ -1111,4 +1111,4 @@ Struct[{
 
 Map type for an auto.master entry
 
-Alias of `Enum['file', 'program', 'yp', 'nisplus', 'hesiod', 'ldap', 'ldaps', 'multi']`
+Alias of `Enum['file', 'program', 'yp', 'nisplus', 'hesiod', 'ldap', 'ldaps', 'multi', 'sss']`
